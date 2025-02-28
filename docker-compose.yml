@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+      - "8443:443"
+    depends_on:
+      - db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=bibleapi;Username=postgres;Password=postgres
+    networks:
+      - bible-network
+
+  db:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=bibleapi
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - bible-network
+
+networks:
+  bible-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
