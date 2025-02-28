@@ -1,4 +1,8 @@
 using BibleApi.Infrastructure;
+using BibleApi.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +16,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 // Add health checks
-builder.Services.AddHealthChecks();
+builder.Services.AddHealthChecks()
+    .AddNpgSql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        name: "database",
+        failureStatus: HealthStatus.Unhealthy,
+        tags: new[] { "db", "postgresql" });
 
 var app = builder.Build();
 
@@ -26,31 +35,28 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Health check endpoint
-app.MapHealthChecks("/health").WithName("health").WithOpenApi();
-
-var summaries = new[]
+// Health check endpoint with detailed response
+app.MapHealthChecks("/health", new HealthCheckOptions
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    ResponseWriter = async (context, report) =>
+    {
+        context.Response.ContentType = "application/json";
+        
+        var response = new
+        {
+            Status = report.Status.ToString(),
+            Duration = report.TotalDuration,
+            Info = report.Entries.Select(e => new
+            {
+                Key = e.Key,
+                Status = e.Value.Status.ToString(),
+                Description = e.Value.Description,
+                Duration = e.Value.Duration
+            })
+        };
+        
+        await context.Response.WriteAsync(JsonSerializer.Serialize(response));
+    }
+}).WithName("health").WithOpenApi();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
