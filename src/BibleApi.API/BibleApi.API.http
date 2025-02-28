@@ -1,6 +1,7 @@
 @BibleApi.API_HostAddress = http://localhost:5105
 
-GET {{BibleApi.API_HostAddress}}/weatherforecast/
+### Health Check
+GET {{BibleApi.API_HostAddress}}/health
 Accept: application/json
 
 ###
