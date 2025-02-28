@@ -1,17 +1,16 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibleApi.Domain", "src\BibleApi.Domain\BibleApi.Domain.csproj", "{E3DC1094-3526-4150-9B31-8AEA3D81F0D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Domain", "src\SacraScriptura.Domain\SacraScriptura.Domain.csproj", "{E3DC1094-3526-4150-9B31-8AEA3D81F0D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibleApi.Application", "src\BibleApi.Application\BibleApi.Application.csproj", "{9E869FC7-9DC7-45E8-A9E5-D70CE6E3F606}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Application", "src\SacraScriptura.Application\SacraScriptura.Application.csproj", "{9E869FC7-9DC7-45E8-A9E5-D70CE6E3F606}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibleApi.Infrastructure", "src\BibleApi.Infrastructure\BibleApi.Infrastructure.csproj", "{6BB75839-277A-402C-86BD-4A4BAE6A72E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Infrastructure", "src\SacraScriptura.Infrastructure\SacraScriptura.Infrastructure.csproj", "{6BB75839-277A-402C-86BD-4A4BAE6A72E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibleApi.API", "src\BibleApi.API\BibleApi.API.csproj", "{1C8054A8-6B17-410D-AEB6-72C323A239D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.API", "src\SacraScriptura.API\SacraScriptura.API.csproj", "{1C8054A8-6B17-410D-AEB6-72C323A239D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,5 +1,5 @@
-using BibleApi.Infrastructure;
-using BibleApi.Infrastructure.Persistence;
+using SacraScriptura.Infrastructure;
+using SacraScriptura.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Text.Json;

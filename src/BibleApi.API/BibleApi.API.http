@@ -1,7 +1,0 @@
-@BibleApi.API_HostAddress = http://localhost:5105
-
-### Health Check
-GET {{BibleApi.API_HostAddress}}/health
-Accept: application/json
-
-###

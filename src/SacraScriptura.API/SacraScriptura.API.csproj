@@ -16,9 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BibleApi.Domain\BibleApi.Domain.csproj" />
-    <ProjectReference Include="..\BibleApi.Application\BibleApi.Application.csproj" />
-    <ProjectReference Include="..\BibleApi.Infrastructure\BibleApi.Infrastructure.csproj" />
+    <ProjectReference Include="..\SacraScriptura.Domain\SacraScriptura.Domain.csproj" />
+    <ProjectReference Include="..\SacraScriptura.Application\SacraScriptura.Application.csproj" />
+    <ProjectReference Include="..\SacraScriptura.Infrastructure\SacraScriptura.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

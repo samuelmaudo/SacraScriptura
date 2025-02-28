@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\BibleApi.Domain\BibleApi.Domain.csproj" />
-    <ProjectReference Include="..\BibleApi.Application\BibleApi.Application.csproj" />
+    <ProjectReference Include="..\SacraScriptura.Domain\SacraScriptura.Domain.csproj" />
+    <ProjectReference Include="..\SacraScriptura.Application\SacraScriptura.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

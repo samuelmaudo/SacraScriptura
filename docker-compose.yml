@@ -12,9 +12,9 @@ services:
       - db
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=bibleapi;Username=postgres;Password=postgres
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=sacrascriptura;Username=postgres;Password=postgres
     networks:
-      - bible-network
+      - sacra-network
 
   db:
     image: postgres:16
@@ -23,14 +23,14 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=bibleapi
+      - POSTGRES_DB=sacrascriptura
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
-      - bible-network
+      - sacra-network
 
 networks:
-  bible-network:
+  sacra-network:
     driver: bridge
 
 volumes:

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace BibleApi.Infrastructure.Persistence;
+namespace SacraScriptura.Infrastructure.Persistence;
 
 public class ApplicationDbContext : DbContext
 {

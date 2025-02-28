@@ -1,9 +1,9 @@
-using BibleApi.Infrastructure.Persistence;
+using SacraScriptura.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BibleApi.Infrastructure;
+namespace SacraScriptura.Infrastructure;
 
 public static class DependencyInjection
 {

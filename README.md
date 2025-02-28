@@ -1,4 +1,4 @@
-# Bible API
+# SacraScriptura API
 
 Una API RESTful desarrollada con C# y .NET Core, utilizando una arquitectura limpia y una base de datos PostgreSQL.
 
@@ -44,7 +44,7 @@ dotnet restore
 4. Ejecuta la aplicación:
 
 ```bash
-dotnet run --project src/BibleApi.API/BibleApi.API.csproj
+dotnet run --project src/SacraScriptura.API/SacraScriptura.API.csproj
 ```
 
 ## Endpoints
