@@ -1,18 +1,33 @@
+using BibleApi.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// Add infrastructure services
+builder.Services.AddInfrastructure(builder.Configuration);
+
+// Add health checks
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseSwagger();
+    app.UseSwaggerUI();
     app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
+
+// Health check endpoint
+app.MapHealthChecks("/health").WithName("health").WithOpenApi();
 
 var summaries = new[]
 {
