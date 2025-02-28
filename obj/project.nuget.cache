@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "3L3mn0I0ZJY=",
+  "success": true,
+  "projectFilePath": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/bible-api/BibleApi/BibleApi.csproj",
+  "expectedPackageFiles": [
+    "/Users/samuelmaudo/.nuget/packages/microsoft.aspnetcore.openapi/9.0.2/microsoft.aspnetcore.openapi.9.0.2.nupkg.sha512",
+    "/Users/samuelmaudo/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
