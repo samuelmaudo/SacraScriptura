@@ -13,7 +13,7 @@ COPY ["src/SacraScriptura.Infrastructure/SacraScriptura.Infrastructure.csproj", 
 RUN dotnet restore
 COPY . .
 WORKDIR "/src"
-RUN dotnet build "SacraScriptura.sln" -c Release -o /app/build
+RUN dotnet build "SacraScriptura.sln" -c Release
 
 FROM build AS publish
 RUN dotnet publish "src/SacraScriptura.API/SacraScriptura.API.csproj" -c Release -o /app/publish /p:UseAppHost=false

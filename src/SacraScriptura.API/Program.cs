@@ -23,6 +23,12 @@ builder.Services.AddHealthChecks()
         failureStatus: HealthStatus.Unhealthy,
         tags: new[] { "db", "postgresql" });
 
+// Configure Kestrel to listen on all interfaces
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(80);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
