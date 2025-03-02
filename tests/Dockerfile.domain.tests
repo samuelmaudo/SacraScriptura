@@ -1,0 +1,20 @@
+FROM mcr.microsoft.com/dotnet/sdk:9.0
+
+WORKDIR /app
+
+# Crear estructura de directorios
+RUN mkdir -p src/SacraScriptura.Domain/Common tests/SacraScriptura.Domain.Tests/Common
+
+# Copiar archivos de proyecto
+COPY src/SacraScriptura.Domain/SacraScriptura.Domain.csproj src/SacraScriptura.Domain/
+COPY tests/SacraScriptura.Domain.Tests/SacraScriptura.Domain.Tests.csproj tests/SacraScriptura.Domain.Tests/
+
+# Restaurar dependencias
+RUN dotnet restore tests/SacraScriptura.Domain.Tests/SacraScriptura.Domain.Tests.csproj
+
+# Copiar código fuente
+COPY src/SacraScriptura.Domain/Common/ src/SacraScriptura.Domain/Common/
+COPY tests/SacraScriptura.Domain.Tests/Common/ tests/SacraScriptura.Domain.Tests/Common/
+
+# Ejecutar tests
+CMD ["dotnet", "test", "tests/SacraScriptura.Domain.Tests/SacraScriptura.Domain.Tests.csproj", "--logger:console;verbosity=detailed"]
