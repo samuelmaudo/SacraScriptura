@@ -3,24 +3,26 @@ using System;
 namespace SacraScriptura.Domain.Common
 {
     /// <summary>
-    /// Represents a unique identifier for a user.
+    /// Represents a unique identifier for a user in the system.
     /// </summary>
     public class UserId : EntityId
     {
-        private UserId(string value) : base(value)
+        /// <summary>
+        /// Creates a new UserId with the specified value.
+        /// </summary>
+        /// <param name="value">The string value of the identifier.</param>
+        /// <exception cref="ArgumentException">Thrown when the value is not a valid identifier.</exception>
+        public UserId(string value) : base(value)
         {
         }
 
         /// <summary>
-        /// Creates a new UserId with a generated value.
+        /// Generates a new unique UserId.
         /// </summary>
-        public static UserId New() => new UserId(GenerateNewId());
-
-        /// <summary>
-        /// Creates a UserId from an existing string value.
-        /// </summary>
-        /// <param name="value">The string representation of the user ID.</param>
-        /// <exception cref="ArgumentException">Thrown when the value is not a valid identifier.</exception>
-        public static UserId From(string value) => new UserId(value);
+        /// <returns>A new UserId.</returns>
+        public static UserId New()
+        {
+            return new UserId(GenerateNewId());
+        }
     }
 }
