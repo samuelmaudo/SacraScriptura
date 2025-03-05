@@ -1,24 +1,34 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading;
 using Xunit;
 using SacraScriptura.Domain.Common;
 
 namespace SacraScriptura.Domain.Tests.Common
 {
+    public class UserId : EntityId
+    {
+        public UserId()
+        {
+        }
+
+        public UserId(string value) : base(value)
+        {
+        }
+        
+        public UserId(DateTimeOffset dateTimeOffset) : base(dateTimeOffset)
+        {
+        }
+    }
+
     public class EntityIdTests
     {
-        // Alphabet used for the IDs: 23456789abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ
-        private const string ValidCharacters = "23456789abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
+        // Alphabet used for the IDs: 123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz
+        private const string ValidCharacters = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
         private const int IdLength = 18;
 
         [Fact]
         public void EntityId_ShouldHaveCorrectFormat()
         {
             // Arrange & Act
-            var userId = UserId.New();
+            var userId = new UserId();
             
             // Assert
             // 1. ID should be exactly 18 characters long
@@ -36,20 +46,14 @@ namespace SacraScriptura.Domain.Tests.Common
         {
             // Arrange
             var ids = new List<UserId>();
-            var timestamps = new List<DateTimeOffset>();
             
             // Act - Create a list of IDs with a small delay between them
             for (int i = 0; i < 3; i++)
             {
-                var beforeCreation = DateTimeOffset.UtcNow;
-                var id = UserId.New();
-                var afterCreation = DateTimeOffset.UtcNow;
+                ids.Add(new UserId());
                 
-                ids.Add(id);
-                timestamps.Add(beforeCreation);
-                
-                // Wait 500ms between creations to ensure different timestamps
-                Thread.Sleep(500); 
+                // Wait 5ms between creations to ensure different timestamps
+                Thread.Sleep(5); 
             }
             
             // Sort the IDs alphabetically
@@ -69,7 +73,7 @@ namespace SacraScriptura.Domain.Tests.Common
         {
             // Arrange
             var beforeCreation = DateTimeOffset.UtcNow;
-            var id = UserId.New();
+            var id = new UserId();
             var afterCreation = DateTimeOffset.UtcNow;
             
             // Act
@@ -86,35 +90,35 @@ namespace SacraScriptura.Domain.Tests.Common
         }
         
         [Fact]
-        public void EntityId_ShouldHaveTimestampWithTenthsOfSecondPrecision()
+        public void EntityId_ShouldHaveTimestampWithMillisecondPrecision()
         {
             // Arrange
-            var id1 = UserId.New();
-            Thread.Sleep(100); // Wait for 100ms (1 tenth of a second)
-            var id2 = UserId.New();
+            var id1 = new UserId();
+            Thread.Sleep(1); // Wait for 1ms
+            var id2 = new UserId();
             
             // Act
             var timestamp1 = id1.GetTimestamp();
             var timestamp2 = id2.GetTimestamp();
             
             // Assert
-            // Calculate the difference in tenths of a second
-            var diffInTenths = Math.Round((timestamp2 - timestamp1).TotalMilliseconds / 100);
+            // Calculate the difference in milliseconds
+            var diffInMilliseconds = Math.Round((timestamp2 - timestamp1).TotalMilliseconds);
             
-            // The difference should be at least 1 tenth of a second
-            Assert.True(diffInTenths >= 1, 
-                $"Timestamps should have tenths of second precision. Difference: {diffInTenths} tenths of a second");
+            // The difference should be at least 1 millisecond
+            Assert.True(diffInMilliseconds >= 1, 
+                $"Timestamps should have millisecond precision. Difference: {diffInMilliseconds} milliseconds");
         }
         
         [Fact]
         public void EntityId_ShouldRejectInvalidFormat()
         {
             // Arrange
-            var validId = UserId.New().Value;
+            var validId = new UserId().Value;
             
             // Act & Assert
             // 1. Null or empty should throw
-            Assert.Throws<ArgumentException>(() => new UserId(null));
+            Assert.Throws<ArgumentException>(() => new UserId((string)null));
             Assert.Throws<ArgumentException>(() => new UserId(string.Empty));
             Assert.Throws<ArgumentException>(() => new UserId("   "));
             
@@ -123,7 +127,7 @@ namespace SacraScriptura.Domain.Tests.Common
             Assert.Throws<ArgumentException>(() => new UserId(validId + "2")); // Too long
             
             // 3. Invalid characters should throw
-            var invalidCharId = "1" + validId.Substring(1); // '1' is not in the alphabet
+            var invalidCharId = "0" + validId.Substring(1); // '0' is not in the alphabet
             Assert.Throws<ArgumentException>(() => new UserId(invalidCharId));
         }
         
@@ -136,7 +140,7 @@ namespace SacraScriptura.Domain.Tests.Common
             // Generate 100 IDs and ensure they're all unique
             for (int i = 0; i < 100; i++)
             {
-                var id = UserId.New().Value;
+                var id = new UserId().Value;
                 
                 // Assert
                 Assert.DoesNotContain(id, ids);

@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net9.0": {}
+    "net9.0": {
+      "SacraScriptura.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/SacraScriptura.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SacraScriptura.Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "SacraScriptura.Domain/1.0.0": {
+      "type": "project",
+      "path": "../SacraScriptura.Domain/SacraScriptura.Domain.csproj",
+      "msbuildProject": "../SacraScriptura.Domain/SacraScriptura.Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net9.0": []
+    "net9.0": [
+      "SacraScriptura.Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/Users/samuelmaudo/.nuget/packages/": {}
@@ -13,11 +32,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/bible-api/BibleApi/src/BibleApi.Application/BibleApi.Application.csproj",
-      "projectName": "BibleApi.Application",
-      "projectPath": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/bible-api/BibleApi/src/BibleApi.Application/BibleApi.Application.csproj",
+      "projectUniqueName": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/SacraScriptura/src/SacraScriptura.Application/SacraScriptura.Application.csproj",
+      "projectName": "SacraScriptura.Application",
+      "projectPath": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/SacraScriptura/src/SacraScriptura.Application/SacraScriptura.Application.csproj",
       "packagesPath": "/Users/samuelmaudo/.nuget/packages/",
-      "outputPath": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/bible-api/BibleApi/src/BibleApi.Application/obj/",
+      "outputPath": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/SacraScriptura/src/SacraScriptura.Application/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/samuelmaudo/.nuget/NuGet/NuGet.Config"
@@ -26,12 +45,17 @@
         "net9.0"
       ],
       "sources": {
+        "/usr/local/Cellar/dotnet/9.0.101/libexec/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/SacraScriptura/src/SacraScriptura.Domain/SacraScriptura.Domain.csproj": {
+              "projectPath": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/SacraScriptura/src/SacraScriptura.Domain/SacraScriptura.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -44,7 +68,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net9.0": {
@@ -65,7 +89,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/Cellar/dotnet/9.0.101/libexec/sdk/9.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

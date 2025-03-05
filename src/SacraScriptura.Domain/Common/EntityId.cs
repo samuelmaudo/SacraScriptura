@@ -1,38 +1,42 @@
-using System;
-using System.Globalization;
-using System.Security.Cryptography;
 using System.Numerics;
+using System.Security.Cryptography;
 
 namespace SacraScriptura.Domain.Common
 {
     /// <summary>
     /// Base class for all entity identifiers in the system.
-    /// Generates 18-character identifiers using a base-56 alphabet with a timestamp component (tenths of a second precision)
+    /// Generates 18-character identifiers using a base-56 alphabet with a timestamp component (millisecond precision)
     /// followed by cryptographically secure random characters.
     /// Identifiers are designed to be ordered from oldest to newest when sorted alphabetically.
     /// </summary>
     public abstract class EntityId : IEquatable<EntityId>, IComparable<EntityId>
     {
-        private const string Alphabet = "23456789abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
-        private const int IdLength = 18;
-        private const int Base = 56; // Alphabet length
-        private const int TimestampBytes = 6; // 48 bits for timestamp
-        private const int RandomBytes = 10; // 80 bits for random data
-        private const int TotalBytes = TimestampBytes + RandomBytes; // 128 bits total (16 bytes)
-        
+        private const int Length = 18;
+
+        // Número total de bits para el identificador (106 bits)
+        private const int TotalBits = 106;
+
+        // Bits reservados para el timestamp (48 bits)
+        private const int TimestampBits = 48;
+
+        // Bits para la entropía aleatoria
+        private const int RandomBits = TotalBits - TimestampBits; // 58 bits
+
         // Unix epoch for timestamp calculations (January 1, 2020)
-        private static readonly DateTimeOffset Epoch = new DateTimeOffset(2020, 1, 1, 0, 0, 0, TimeSpan.Zero);
-        
-        // The internal binary representation of the ID
-        private readonly byte[] _bytes;
-        
-        // For testing purposes, we store the creation timestamp
-        private readonly DateTimeOffset _creationTime;
+        private const long EpochTimestamp = 1577836800;
 
         /// <summary>
         /// Gets the string representation of this identifier.
         /// </summary>
         public string Value { get; }
+
+        /// <summary>
+        /// Creates a new EntityId.
+        /// </summary>
+        protected EntityId()
+        {
+            Value = GenerateIdentifier(DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
+        }
 
         /// <summary>
         /// Creates a new EntityId with the specified value.
@@ -46,82 +50,26 @@ namespace SacraScriptura.Domain.Common
                 throw new ArgumentException("Identifier cannot be null or empty.", nameof(value));
             }
 
-            if (value.Length != IdLength)
+            if (value.Length != Length)
             {
-                throw new ArgumentException($"Identifier must be exactly {IdLength} characters long.", nameof(value));
+                throw new ArgumentException($"Identifier must be exactly {Length} characters long.", nameof(value));
             }
 
-            if (!IsValidId(value))
+            if (!Base58.IsValidId(value))
             {
                 throw new ArgumentException("Identifier contains invalid characters.", nameof(value));
             }
 
             Value = value;
-            _bytes = FromBase56(value);
-            _creationTime = DateTimeOffset.UtcNow;
         }
 
         /// <summary>
-        /// Creates a new EntityId with the specified binary data.
+        /// Creates a new EntityId with the specified timestamp.
         /// </summary>
-        /// <param name="bytes">The binary data for the identifier.</param>
-        /// <exception cref="ArgumentException">Thrown when the binary data is not valid.</exception>
-        protected EntityId(byte[] bytes)
+        /// <param name="dateTimeOffset">The timestamp.</param>
+        protected EntityId(DateTimeOffset dateTimeOffset)
         {
-            if (bytes == null || bytes.Length != TotalBytes)
-            {
-                throw new ArgumentException($"Binary data must be exactly {TotalBytes} bytes long.", nameof(bytes));
-            }
-
-            _bytes = (byte[])bytes.Clone(); // Create a defensive copy
-            Value = ToBase56(_bytes);
-            _creationTime = DateTimeOffset.UtcNow;
-        }
-
-        /// <summary>
-        /// Generates a new unique identifier.
-        /// </summary>
-        /// <returns>A new identifier string.</returns>
-        protected static string GenerateNewId()
-        {
-            var bytes = new byte[TotalBytes];
-            
-            // Generate timestamp bytes (48 bits)
-            var timestamp = GenerateTimestampBytes();
-            Buffer.BlockCopy(timestamp, 0, bytes, 0, TimestampBytes);
-            
-            // Generate random bytes (80 bits)
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(bytes, TimestampBytes, RandomBytes);
-            }
-            
-            return ToBase56(bytes);
-        }
-
-        /// <summary>
-        /// Generates timestamp bytes with tenths of a second precision since the epoch.
-        /// </summary>
-        private static byte[] GenerateTimestampBytes()
-        {
-            // Get the current time in milliseconds since epoch
-            long millisecondsSinceEpoch = (long)(DateTimeOffset.UtcNow - Epoch).TotalMilliseconds;
-            
-            // Convert to tenths of a second (100ms precision)
-            long tenthsOfSecondSinceEpoch = millisecondsSinceEpoch / 100;
-            
-            // Create a 48-bit (6-byte) array for the timestamp
-            var timestampBytes = new byte[TimestampBytes];
-            
-            // Convert the timestamp to bytes, most significant byte first (big-endian)
-            // This ensures correct alphabetical ordering
-            for (int i = TimestampBytes - 1; i >= 0; i--)
-            {
-                timestampBytes[i] = (byte)(tenthsOfSecondSinceEpoch & 0xFF);
-                tenthsOfSecondSinceEpoch >>= 8;
-            }
-            
-            return timestampBytes;
+            Value = GenerateIdentifier(dateTimeOffset.ToUnixTimeMilliseconds());
         }
 
         /// <summary>
@@ -130,108 +78,75 @@ namespace SacraScriptura.Domain.Common
         /// <returns>The timestamp as a DateTimeOffset.</returns>
         public DateTimeOffset GetTimestamp()
         {
-            // For testing purposes, return the actual creation time
-            // In a real implementation, we would extract it from the bytes
-            return _creationTime;
+            return DateTimeOffset.FromUnixTimeMilliseconds(ExtractTimestamp(Value));
         }
 
         /// <summary>
-        /// Converts binary data to a base-56 string.
+        /// Genera el identificador de 18 caracteres en Base58.
         /// </summary>
-        private static string ToBase56(byte[] bytes)
+        private static string GenerateIdentifier(long timestamp)
         {
-            if (bytes == null || bytes.Length == 0)
+            long millisecondsSinceEpoch = timestamp - EpochTimestamp;
+
+            // Nos aseguramos de que el timestamp cabe en 48 bits (no se excederá por años futuros)
+            if (millisecondsSinceEpoch >= (1L << TimestampBits))
             {
-                return string.Empty;
+                throw new InvalidOperationException("El timestamp excede los 48 bits reservados.");
             }
-            
-            // Convert bytes to a big integer
-            BigInteger value = 0;
-            for (int i = 0; i < bytes.Length; i++)
-            {
-                value = (value << 8) | bytes[i];
-            }
-            
-            // Convert to base-56
-            var result = string.Empty;
-            var bigBase = new BigInteger(Base);
-            
-            while (value > 0)
-            {
-                var remainder = (int)(value % bigBase);
-                result = Alphabet[remainder] + result;
-                value /= bigBase;
-            }
-            
-            // Pad to ensure consistent length
-            while (result.Length < IdLength)
-            {
-                result = Alphabet[0] + result;
-            }
-            
-            // Truncate if somehow longer than IdLength (shouldn't happen with our byte size)
-            if (result.Length > IdLength)
-            {
-                result = result.Substring(result.Length - IdLength);
-            }
-            
-            return result;
+
+            // Convertir el timestamp a BigInteger (ya está en base 10)
+            BigInteger timestampPart = millisecondsSinceEpoch;
+
+            // Paso 2: Generar 58 bits de entropía aleatoria
+            BigInteger randomPart = GenerateRandomBits(RandomBits);
+
+            // Paso 3: Combinar: colocar el timestamp en los bits más significativos y la entropía en los bits menos significativos.
+            // Como el timestamp ocupa 48 bits, se desplaza 58 bits a la izquierda y se une (bitwise OR) con la parte aleatoria.
+            BigInteger combined = (timestampPart << RandomBits) | randomPart;
+
+            // Paso 4: Convertir el número combinado a Base58.
+            string base58 = Base58.FromBigInteger(combined);
+
+            // Asegurarse de que el resultado tenga 18 caracteres (se rellena con '1', que equivale al dígito 0 en Base58).
+            base58 = base58.PadLeft(18, '1');
+
+            return base58;
         }
 
         /// <summary>
-        /// Converts a base-56 string to binary data.
+        /// Genera un número aleatorio de 'bits' bits como BigInteger.
         /// </summary>
-        private static byte[] FromBase56(string value)
+        private static BigInteger GenerateRandomBits(int bits)
         {
-            if (string.IsNullOrEmpty(value))
+            int bytes = (bits + 7) / 8; // Redondear al byte más cercano.
+            byte[] data = new byte[bytes];
+            RandomNumberGenerator.Fill(data);
+
+            // Asegurarse de que los bits no deseados (en el byte más significativo) sean cero.
+            int extraBits = bytes * 8 - bits;
+            if (extraBits > 0)
             {
-                return new byte[0];
+                byte mask = (byte)(0xFF >> extraBits);
+                data[0] &= mask;
             }
-            
-            // Convert from base-56 to a big integer
-            BigInteger bigInt = 0;
-            var bigBase = new BigInteger(Base);
-            
-            foreach (char c in value)
-            {
-                int charIndex = Alphabet.IndexOf(c);
-                if (charIndex == -1)
-                {
-                    throw new ArgumentException($"Character '{c}' is not in the alphabet.");
-                }
-                bigInt = bigInt * bigBase + charIndex;
-            }
-            
-            // Convert to bytes
-            var bytes = bigInt.ToByteArray();
-            
-            // Ensure we have the correct number of bytes
-            var result = new byte[TotalBytes];
-            
-            // Copy bytes, handling endianness and length differences
-            int sourceIndex = Math.Max(0, bytes.Length - TotalBytes);
-            int destIndex = Math.Max(0, TotalBytes - bytes.Length);
-            int count = Math.Min(bytes.Length, TotalBytes);
-            
-            Buffer.BlockCopy(bytes, sourceIndex, result, destIndex, count);
-            
-            return result;
+
+            return new BigInteger(data, isUnsigned: true, isBigEndian: true);
         }
 
         /// <summary>
-        /// Checks if a string is a valid identifier.
+        /// Decodifica el identificador Base58 y extrae el timestamp (48 bits) en milisegundos.
         /// </summary>
-        private static bool IsValidId(string value)
+        private static long ExtractTimestamp(string value)
         {
-            foreach (char c in value)
-            {
-                if (Alphabet.IndexOf(c) == -1)
-                {
-                    return false;
-                }
-            }
-            
-            return true;
+            // Convertir el string Base58 a BigInteger.
+            var combined = Base58.ToBigInteger(value);
+
+            // Desplazar a la derecha 58 bits para obtener los 48 bits más significativos (timestamp).
+            var timestampPart = combined >> RandomBits;
+
+            var millisecondsSinceEpoch = (long)timestampPart;
+
+            return millisecondsSinceEpoch + EpochTimestamp;
         }
 
         /// <summary>
@@ -312,11 +227,6 @@ namespace SacraScriptura.Domain.Common
 
         public static bool operator ==(EntityId left, EntityId right)
         {
-            if (left is null)
-            {
-                return right is null;
-            }
-
             return left.Equals(right);
         }
 
@@ -324,41 +234,21 @@ namespace SacraScriptura.Domain.Common
 
         public static bool operator <(EntityId left, EntityId right)
         {
-            if (left is null)
-            {
-                return !(right is null);
-            }
-
             return left.CompareTo(right) < 0;
         }
 
         public static bool operator <=(EntityId left, EntityId right)
         {
-            if (left is null)
-            {
-                return true;
-            }
-
             return left.CompareTo(right) <= 0;
         }
 
         public static bool operator >(EntityId left, EntityId right)
         {
-            if (left is null)
-            {
-                return false;
-            }
-
             return left.CompareTo(right) > 0;
         }
 
         public static bool operator >=(EntityId left, EntityId right)
         {
-            if (left is null)
-            {
-                return right is null;
-            }
-
             return left.CompareTo(right) >= 0;
         }
     }

@@ -5,7 +5,7 @@
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Humanizer.dll": {
+          "lib/net6.0/_._": {
             "related": ".xml"
           }
         },
@@ -18,7 +18,7 @@
       "Microsoft.Bcl.AsyncInterfaces/7.0.0": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
+          "lib/netstandard2.1/_._": {
             "related": ".xml"
           }
         },
@@ -31,7 +31,7 @@
       "Microsoft.Build.Framework/17.8.3": {
         "type": "package",
         "compile": {
-          "ref/net8.0/Microsoft.Build.Framework.dll": {
+          "ref/net8.0/_._": {
             "related": ".xml"
           }
         },
@@ -44,7 +44,7 @@
       "Microsoft.Build.Locator/1.7.8": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Microsoft.Build.Locator.dll": {}
+          "lib/net6.0/_._": {}
         },
         "runtime": {
           "lib/net6.0/Microsoft.Build.Locator.dll": {}
@@ -69,7 +69,7 @@
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
         },
         "compile": {
-          "lib/net7.0/Microsoft.CodeAnalysis.dll": {
+          "lib/net7.0/_._": {
             "related": ".pdb;.xml"
           }
         },
@@ -126,7 +126,7 @@
           "Microsoft.CodeAnalysis.Common": "[4.8.0]"
         },
         "compile": {
-          "lib/net7.0/Microsoft.CodeAnalysis.CSharp.dll": {
+          "lib/net7.0/_._": {
             "related": ".pdb;.xml"
           }
         },
@@ -186,7 +186,7 @@
           "Microsoft.CodeAnalysis.Workspaces.Common": "[4.8.0]"
         },
         "compile": {
-          "lib/net7.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll": {
+          "lib/net7.0/_._": {
             "related": ".pdb;.xml"
           }
         },
@@ -248,7 +248,7 @@
           "System.Threading.Channels": "7.0.0"
         },
         "compile": {
-          "lib/net7.0/Microsoft.CodeAnalysis.Workspaces.dll": {
+          "lib/net7.0/_._": {
             "related": ".pdb;.xml"
           }
         },
@@ -308,11 +308,8 @@
           "System.Text.Json": "7.0.3"
         },
         "compile": {
-          "lib/net7.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll": {
+          "lib/net7.0/_._": {
             "related": ".pdb;.runtimeconfig.json;.xml"
-          },
-          "lib/net7.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.dll": {
-            "related": ".BuildHost.pdb;.BuildHost.runtimeconfig.json;.BuildHost.xml;.pdb;.xml"
           }
         },
         "runtime": {
@@ -421,7 +418,7 @@
           "System.Text.Json": "9.0.2"
         },
         "compile": {
-          "lib/net8.0/Microsoft.EntityFrameworkCore.Design.dll": {
+          "lib/net8.0/_._": {
             "related": ".xml"
           }
         },
@@ -552,7 +549,7 @@
       "Microsoft.Extensions.DependencyModel/9.0.2": {
         "type": "package",
         "compile": {
-          "lib/net9.0/Microsoft.Extensions.DependencyModel.dll": {
+          "lib/net9.0/_._": {
             "related": ".xml"
           }
         },
@@ -647,7 +644,7 @@
           "System.CodeDom": "6.0.0"
         },
         "compile": {
-          "lib/net6.0/Mono.TextTemplating.dll": {}
+          "lib/net6.0/_._": {}
         },
         "runtime": {
           "lib/net6.0/Mono.TextTemplating.dll": {}
@@ -693,7 +690,7 @@
       "System.CodeDom/6.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/System.CodeDom.dll": {
+          "lib/net6.0/_._": {
             "related": ".xml"
           }
         },
@@ -709,7 +706,7 @@
       "System.Collections.Immutable/7.0.0": {
         "type": "package",
         "compile": {
-          "lib/net7.0/System.Collections.Immutable.dll": {
+          "lib/net7.0/_._": {
             "related": ".xml"
           }
         },
@@ -744,7 +741,7 @@
       "System.Composition.AttributedModel/7.0.0": {
         "type": "package",
         "compile": {
-          "lib/net7.0/System.Composition.AttributedModel.dll": {
+          "lib/net7.0/_._": {
             "related": ".xml"
           }
         },
@@ -763,7 +760,7 @@
           "System.Composition.AttributedModel": "7.0.0"
         },
         "compile": {
-          "lib/net7.0/System.Composition.Convention.dll": {
+          "lib/net7.0/_._": {
             "related": ".xml"
           }
         },
@@ -782,7 +779,7 @@
           "System.Composition.Runtime": "7.0.0"
         },
         "compile": {
-          "lib/net7.0/System.Composition.Hosting.dll": {
+          "lib/net7.0/_._": {
             "related": ".xml"
           }
         },
@@ -798,7 +795,7 @@
       "System.Composition.Runtime/7.0.0": {
         "type": "package",
         "compile": {
-          "lib/net7.0/System.Composition.Runtime.dll": {
+          "lib/net7.0/_._": {
             "related": ".xml"
           }
         },
@@ -819,7 +816,7 @@
           "System.Composition.Runtime": "7.0.0"
         },
         "compile": {
-          "lib/net7.0/System.Composition.TypedParts.dll": {
+          "lib/net7.0/_._": {
             "related": ".xml"
           }
         },
@@ -835,7 +832,7 @@
       "System.IO.Pipelines/7.0.0": {
         "type": "package",
         "compile": {
-          "lib/net7.0/System.IO.Pipelines.dll": {
+          "lib/net7.0/_._": {
             "related": ".xml"
           }
         },
@@ -854,7 +851,7 @@
           "System.Collections.Immutable": "7.0.0"
         },
         "compile": {
-          "lib/net7.0/System.Reflection.Metadata.dll": {
+          "lib/net7.0/_._": {
             "related": ".xml"
           }
         },
@@ -870,7 +867,7 @@
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {
+          "lib/net6.0/_._": {
             "related": ".xml"
           }
         },
@@ -886,7 +883,7 @@
       "System.Text.Json/9.0.2": {
         "type": "package",
         "compile": {
-          "lib/net9.0/System.Text.Json.dll": {
+          "lib/net9.0/_._": {
             "related": ".xml"
           }
         },
@@ -902,7 +899,7 @@
       "System.Threading.Channels/7.0.0": {
         "type": "package",
         "compile": {
-          "lib/net7.0/System.Threading.Channels.dll": {
+          "lib/net7.0/_._": {
             "related": ".xml"
           }
         },
@@ -915,27 +912,27 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "BibleApi.Application/1.0.0": {
+      "SacraScriptura.Application/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
-          "BibleApi.Domain": "1.0.0"
+          "SacraScriptura.Domain": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/BibleApi.Application.dll": {}
+          "bin/placeholder/SacraScriptura.Application.dll": {}
         },
         "runtime": {
-          "bin/placeholder/BibleApi.Application.dll": {}
+          "bin/placeholder/SacraScriptura.Application.dll": {}
         }
       },
-      "BibleApi.Domain/1.0.0": {
+      "SacraScriptura.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "compile": {
-          "bin/placeholder/BibleApi.Domain.dll": {}
+          "bin/placeholder/SacraScriptura.Domain.dll": {}
         },
         "runtime": {
-          "bin/placeholder/BibleApi.Domain.dll": {}
+          "bin/placeholder/SacraScriptura.Domain.dll": {}
         }
       }
     }
@@ -2800,23 +2797,23 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "BibleApi.Application/1.0.0": {
+    "SacraScriptura.Application/1.0.0": {
       "type": "project",
-      "path": "../BibleApi.Application/BibleApi.Application.csproj",
-      "msbuildProject": "../BibleApi.Application/BibleApi.Application.csproj"
+      "path": "../SacraScriptura.Application/SacraScriptura.Application.csproj",
+      "msbuildProject": "../SacraScriptura.Application/SacraScriptura.Application.csproj"
     },
-    "BibleApi.Domain/1.0.0": {
+    "SacraScriptura.Domain/1.0.0": {
       "type": "project",
-      "path": "../BibleApi.Domain/BibleApi.Domain.csproj",
-      "msbuildProject": "../BibleApi.Domain/BibleApi.Domain.csproj"
+      "path": "../SacraScriptura.Domain/SacraScriptura.Domain.csproj",
+      "msbuildProject": "../SacraScriptura.Domain/SacraScriptura.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
-      "BibleApi.Application >= 1.0.0",
-      "BibleApi.Domain >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.2",
-      "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.3"
+      "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.3",
+      "SacraScriptura.Application >= 1.0.0",
+      "SacraScriptura.Domain >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2825,11 +2822,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/bible-api/BibleApi/src/BibleApi.Infrastructure/BibleApi.Infrastructure.csproj",
-      "projectName": "BibleApi.Infrastructure",
-      "projectPath": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/bible-api/BibleApi/src/BibleApi.Infrastructure/BibleApi.Infrastructure.csproj",
+      "projectUniqueName": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/SacraScriptura/src/SacraScriptura.Infrastructure/SacraScriptura.Infrastructure.csproj",
+      "projectName": "SacraScriptura.Infrastructure",
+      "projectPath": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/SacraScriptura/src/SacraScriptura.Infrastructure/SacraScriptura.Infrastructure.csproj",
       "packagesPath": "/Users/samuelmaudo/.nuget/packages/",
-      "outputPath": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/bible-api/BibleApi/src/BibleApi.Infrastructure/obj/",
+      "outputPath": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/SacraScriptura/src/SacraScriptura.Infrastructure/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/samuelmaudo/.nuget/NuGet/NuGet.Config"
@@ -2838,17 +2835,18 @@
         "net9.0"
       ],
       "sources": {
+        "/usr/local/Cellar/dotnet/9.0.101/libexec/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/bible-api/BibleApi/src/BibleApi.Application/BibleApi.Application.csproj": {
-              "projectPath": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/bible-api/BibleApi/src/BibleApi.Application/BibleApi.Application.csproj"
+            "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/SacraScriptura/src/SacraScriptura.Application/SacraScriptura.Application.csproj": {
+              "projectPath": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/SacraScriptura/src/SacraScriptura.Application/SacraScriptura.Application.csproj"
             },
-            "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/bible-api/BibleApi/src/BibleApi.Domain/BibleApi.Domain.csproj": {
-              "projectPath": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/bible-api/BibleApi/src/BibleApi.Domain/BibleApi.Domain.csproj"
+            "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/SacraScriptura/src/SacraScriptura.Domain/SacraScriptura.Domain.csproj": {
+              "projectPath": "/Users/samuelmaudo/Projects/CascadeProjects/windsurf-project/SacraScriptura/src/SacraScriptura.Domain/SacraScriptura.Domain.csproj"
             }
           }
         }
@@ -2863,7 +2861,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net9.0": {
@@ -2896,7 +2894,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/Cellar/dotnet/9.0.101/libexec/sdk/9.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
