@@ -28,15 +28,18 @@ builder.WebHost.ConfigureKestrel(
     serverOptions =>
     {
         // HTTP
-        if (builder.Environment.IsDevelopment())
-        {
-            serverOptions.ListenAnyIP(80);
-        }
+        serverOptions.ListenAnyIP(80);
 
         // HTTPS
         serverOptions.ListenAnyIP(
             443,
-            listenOptions => { listenOptions.UseHttps(); }
+            listenOptions =>
+            {
+                listenOptions.UseHttps(
+                    "/root/.aspnet/https/localhost.pfx",
+                    "local-development"
+                );
+            }
         );
     }
 );

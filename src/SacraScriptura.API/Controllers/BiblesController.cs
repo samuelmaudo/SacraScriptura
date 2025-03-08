@@ -4,7 +4,7 @@ using SacraScriptura.Application.Bibles;
 namespace SacraScriptura.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/bibles")]
 public class BiblesController(
     IBibleService bibleService
 ) : ControllerBase

@@ -6,13 +6,13 @@ services:
     ports:
       - "8080:80"
       - "8443:443"
-    depends_on:
-      - db
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=sacrascriptura;Username=postgres;Password=postgres
     networks:
-      - sacra-network
+      - sacrascriptura-network
 
   db:
     image: postgres:16
@@ -25,10 +25,10 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
-      - sacra-network
+      - sacrascriptura-network
 
 networks:
-  sacra-network:
+  sacrascriptura-network:
     driver: bridge
 
 volumes:

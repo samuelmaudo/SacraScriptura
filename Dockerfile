@@ -10,6 +10,7 @@ COPY ["src/SacraScriptura.API/SacraScriptura.API.csproj", "src/SacraScriptura.AP
 COPY ["src/SacraScriptura.Application/SacraScriptura.Application.csproj", "src/SacraScriptura.Application/"]
 COPY ["src/SacraScriptura.Domain/SacraScriptura.Domain.csproj", "src/SacraScriptura.Domain/"]
 COPY ["src/SacraScriptura.Infrastructure/SacraScriptura.Infrastructure.csproj", "src/SacraScriptura.Infrastructure/"]
+COPY ["tests/SacraScriptura.Domain.Tests/SacraScriptura.Domain.Tests.csproj", "tests/SacraScriptura.Domain.Tests/"]
 RUN dotnet restore
 COPY . .
 WORKDIR "/src"
