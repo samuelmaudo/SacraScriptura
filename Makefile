@@ -1,4 +1,4 @@
-.PHONY: help db app db-logs stop-db clean-db dependencies migrations tests domain-tests
+.PHONY: help db app db-logs stop-db clean-db dependencies migrations add-migration tests domain-tests
 
 # Colors for terminal output
 GREEN = \033[0;32m
@@ -37,6 +37,11 @@ dependencies:
 migrations:
 	@echo "$(GREEN)Running database migrations...$(NC)"
 	dotnet ef database update --project src/SacraScriptura.Infrastructure/SacraScriptura.Infrastructure.csproj --startup-project src/SacraScriptura.API/SacraScriptura.API.csproj
+
+add-migration: ## Create a new migration
+	@read -p "Enter migration name: " name; \
+	 echo "$(GREEN)Adding migration '$$name'...$(NC)"; \
+	 dotnet ef migrations add $$name --project src/SacraScriptura.Infrastructure/SacraScriptura.Infrastructure.csproj --startup-project src/SacraScriptura.API/SacraScriptura.API.csproj
 
 tests: domain-tests ## Run all tests
 

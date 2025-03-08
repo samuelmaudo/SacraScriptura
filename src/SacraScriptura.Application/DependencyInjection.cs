@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using SacraScriptura.Application.Bibles;
+using SacraScriptura.Application.Books;
 
 namespace SacraScriptura.Application;
 
@@ -9,6 +10,7 @@ public static class DependencyInjection
     {
         // Register services
         services.AddScoped<BibleService>();
+        services.AddScoped<BookService>();
 
         return services;
     }

@@ -1,4 +1,5 @@
 using SacraScriptura.Domain.Bibles;
+using SacraScriptura.Domain.Books;
 using SacraScriptura.Infrastructure.Database;
 using SacraScriptura.Infrastructure.Database.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,7 @@ public static class DependencyInjection
 
         // Register repositories
         services.AddScoped<IBibleRepository, BibleRepository>();
+        services.AddScoped<IBookRepository, BookRepository>();
 
         return services;
     }
