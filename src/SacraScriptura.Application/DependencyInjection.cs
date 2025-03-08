@@ -8,7 +8,7 @@ public static class DependencyInjection
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         // Register services
-        services.AddScoped<IBibleService, BibleService>();
+        services.AddScoped<BibleService>();
 
         return services;
     }

@@ -1,6 +1,6 @@
 using SacraScriptura.Domain.Common;
 
-namespace SacraScriptura.Domain;
+namespace SacraScriptura.Domain.Bibles;
 
 public sealed class BibleId : EntityId
 {

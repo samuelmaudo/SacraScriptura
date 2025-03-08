@@ -1,10 +1,10 @@
-using SacraScriptura.Domain;
+using SacraScriptura.Domain.Bibles;
 
 namespace SacraScriptura.Application.Bibles;
 
 public class BibleService(
     IBibleRepository bibleRepository
-) : IBibleService
+)
 {
     public async Task<IEnumerable<BibleDto>> GetAllBiblesAsync()
     {

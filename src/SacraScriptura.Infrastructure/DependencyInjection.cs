@@ -1,5 +1,6 @@
-using SacraScriptura.Domain;
-using SacraScriptura.Infrastructure.Persistence;
+using SacraScriptura.Domain.Bibles;
+using SacraScriptura.Infrastructure.Database;
+using SacraScriptura.Infrastructure.Database.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

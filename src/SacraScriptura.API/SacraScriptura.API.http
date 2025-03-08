@@ -1,7 +1,0 @@
-@SacraScriptura.API_HostAddress = http://localhost:8080
-
-### Health Check
-GET {{SacraScriptura.API_HostAddress}}/health
-Accept: application/json
-
-###

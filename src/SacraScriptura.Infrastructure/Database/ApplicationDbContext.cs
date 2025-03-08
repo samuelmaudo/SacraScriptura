@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using SacraScriptura.Domain;
+using SacraScriptura.Domain.Bibles;
 
-namespace SacraScriptura.Infrastructure.Persistence;
+namespace SacraScriptura.Infrastructure.Database;
 
 public class ApplicationDbContext(
     DbContextOptions<ApplicationDbContext> options
@@ -26,29 +26,39 @@ public class ApplicationDbContext(
                           id => id!.Value,
                           value => new BibleId(value)
                       )
-                      .HasColumnName("id");
+                      .IsRequired()
+                      .HasColumnName("id")
+                      .HasMaxLength(18)
+                      .IsUnicode(false)
+                      .UseCollation("C");
 
                 entity.Property(e => e.Name)
                       .IsRequired()
                       .HasColumnName("name")
-                      .HasMaxLength(63);
+                      .HasMaxLength(63)
+                      .IsUnicode();
 
                 entity.Property(e => e.LanguageCode)
                       .IsRequired()
                       .HasColumnName("language_code")
-                      .HasMaxLength(5);
+                      .HasMaxLength(5)
+                      .IsUnicode(false)
+                      .UseCollation("C");
 
                 entity.Property(e => e.Version)
                       .IsRequired()
                       .HasColumnName("version")
-                      .HasMaxLength(63);
+                      .HasMaxLength(63)
+                      .IsUnicode();
 
                 entity.Property(e => e.Description)
-                      .HasColumnName("description");
+                      .HasColumnName("description")
+                      .IsUnicode();
 
                 entity.Property(e => e.PublisherName)
                       .HasColumnName("publisher_name")
-                      .HasMaxLength(63);
+                      .HasMaxLength(63)
+                      .IsUnicode();
 
                 entity.Property(e => e.Year)
                       .HasColumnName("year");

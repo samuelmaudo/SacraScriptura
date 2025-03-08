@@ -1,8 +1,8 @@
-using SacraScriptura.Application;
-using SacraScriptura.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Text.Json;
+using SacraScriptura.Application;
+using SacraScriptura.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,15 +28,15 @@ builder.WebHost.ConfigureKestrel(
     serverOptions =>
     {
         // HTTP
-        serverOptions.ListenAnyIP(80);
+        serverOptions.ListenAnyIP(8080);
 
         // HTTPS
         serverOptions.ListenAnyIP(
-            443,
+            8443,
             listenOptions =>
             {
                 listenOptions.UseHttps(
-                    "/root/.aspnet/https/localhost.pfx",
+                    "/Users/samuelmaudo/.aspnet/https/localhost.pfx",
                     "local-development"
                 );
             }
@@ -47,20 +47,17 @@ builder.WebHost.ConfigureKestrel(
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.MapOpenApi();
-}
+app.UseRouting();
+app.MapControllers();
 
 if (!app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();
 }
 
-app.UseRouting();
-app.MapControllers();
+app.UseSwagger();
+app.UseSwaggerUI();
+app.MapOpenApi();
 
 // Health check endpoint with detailed response
 app.MapHealthChecks(

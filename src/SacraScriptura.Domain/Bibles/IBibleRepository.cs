@@ -1,4 +1,4 @@
-namespace SacraScriptura.Domain;
+namespace SacraScriptura.Domain.Bibles;
 
 public interface IBibleRepository
 {

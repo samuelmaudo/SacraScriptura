@@ -6,7 +6,7 @@ namespace SacraScriptura.API.Controllers;
 [ApiController]
 [Route("api/bibles")]
 public class BiblesController(
-    IBibleService bibleService
+    BibleService bibleService
 ) : ControllerBase
 {
     [HttpGet]

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using SacraScriptura.Domain;
+using SacraScriptura.Domain.Bibles;
 
-namespace SacraScriptura.Infrastructure.Persistence;
+namespace SacraScriptura.Infrastructure.Database.Repositories;
 
 public class BibleRepository(
     ApplicationDbContext context

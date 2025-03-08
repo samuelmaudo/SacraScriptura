@@ -1,19 +1,4 @@
 services:
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:80"
-      - "8443:443"
-    volumes:
-      - ~/.aspnet/https:/root/.aspnet/https:ro
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=sacrascriptura;Username=postgres;Password=postgres
-    networks:
-      - sacrascriptura-network
-
   db:
     image: postgres:16
     ports:
@@ -24,12 +9,6 @@ services:
       - POSTGRES_DB=sacrascriptura
     volumes:
       - postgres-data:/var/lib/postgresql/data
-    networks:
-      - sacrascriptura-network
-
-networks:
-  sacrascriptura-network:
-    driver: bridge
 
 volumes:
   postgres-data:
