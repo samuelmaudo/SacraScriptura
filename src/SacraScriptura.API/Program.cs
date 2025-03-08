@@ -1,5 +1,5 @@
+using SacraScriptura.Application;
 using SacraScriptura.Infrastructure;
-using SacraScriptura.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Text.Json;
@@ -7,27 +7,39 @@ using System.Text.Json;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(); // https://aka.ms/aspnet/openapi
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// Add infrastructure services
+builder.Services.AddControllers();
+builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 // Add health checks
 builder.Services.AddHealthChecks()
-    .AddNpgSql(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        name: "database",
-        failureStatus: HealthStatus.Unhealthy,
-        tags: new[] { "db", "postgresql" });
+       .AddNpgSql(
+           builder.Configuration.GetConnectionString("DefaultConnection"),
+           name: "database",
+           failureStatus: HealthStatus.Unhealthy,
+           tags: ["db", "postgresql"]
+       );
 
 // Configure Kestrel to listen on all interfaces
-builder.WebHost.ConfigureKestrel(serverOptions =>
-{
-    serverOptions.ListenAnyIP(80);
-});
+builder.WebHost.ConfigureKestrel(
+    serverOptions =>
+    {
+        // HTTP
+        if (builder.Environment.IsDevelopment())
+        {
+            serverOptions.ListenAnyIP(80);
+        }
+
+        // HTTPS
+        serverOptions.ListenAnyIP(
+            443,
+            listenOptions => { listenOptions.UseHttps(); }
+        );
+    }
+);
 
 var app = builder.Build();
 
@@ -39,30 +51,44 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
+app.UseRouting();
+app.MapControllers();
 
 // Health check endpoint with detailed response
-app.MapHealthChecks("/health", new HealthCheckOptions
-{
-    ResponseWriter = async (context, report) =>
+app.MapHealthChecks(
+    "/health",
+    new HealthCheckOptions
     {
-        context.Response.ContentType = "application/json";
-        
-        var response = new
+        ResponseWriter = async (
+            context,
+            report
+        ) =>
         {
-            Status = report.Status.ToString(),
-            Duration = report.TotalDuration,
-            Info = report.Entries.Select(e => new
+            context.Response.ContentType = "application/json";
+
+            var response = new
             {
-                Key = e.Key,
-                Status = e.Value.Status.ToString(),
-                Description = e.Value.Description,
-                Duration = e.Value.Duration
-            })
-        };
-        
-        await context.Response.WriteAsync(JsonSerializer.Serialize(response));
+                Status = report.Status.ToString(),
+                Duration = report.TotalDuration,
+                Info = report.Entries.Select(
+                    e => new
+                    {
+                        Key = e.Key,
+                        Status = e.Value.Status.ToString(),
+                        Description = e.Value.Description,
+                        Duration = e.Value.Duration
+                    }
+                )
+            };
+
+            await context.Response.WriteAsync(JsonSerializer.Serialize(response));
+        }
     }
-}).WithName("health").WithOpenApi();
+).WithName("health").WithOpenApi();
 
 app.Run();
