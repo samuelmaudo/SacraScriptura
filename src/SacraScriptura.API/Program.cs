@@ -33,13 +33,7 @@ builder.WebHost.ConfigureKestrel(
         // HTTPS
         serverOptions.ListenAnyIP(
             8443,
-            listenOptions =>
-            {
-                listenOptions.UseHttps(
-                    "/Users/samuelmaudo/.aspnet/https/localhost.pfx",
-                    "local-development"
-                );
-            }
+            listenOptions => { listenOptions.UseHttps(); }
         );
     }
 );

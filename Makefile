@@ -1,4 +1,4 @@
-.PHONY: help db app db-logs stop-db clean-db tests domain-tests migrations
+.PHONY: help db app db-logs stop-db clean-db dependencies migrations tests domain-tests
 
 # Colors for terminal output
 GREEN = \033[0;32m
@@ -16,8 +16,8 @@ db:
 	docker compose up -d
 
 app:
-	@echo "$(GREEN)Starting application...$(NC)"
-	dotnet run --launch-profile https --project=src/SacraScriptura.API
+	@echo "$(GREEN)Launching application...$(NC)"
+	dotnet run --launch-profile http --project=src/SacraScriptura.API
 
 db-logs:
 	docker compose logs -f
@@ -27,15 +27,19 @@ stop-db:
 	docker compose down
 
 clean-db: ## Remove all containers, images, and volumes
-	@echo "$(GREEN)Cleaning up...$(NC)"
+	@echo "$(GREEN)Cleaning up database...$(NC)"
 	docker compose down -v --rmi all --remove-orphans
+
+dependencies:
+	@echo "$(GREEN)Restoring dependencies...$(NC)"
+	dotnet restore
+
+migrations:
+	@echo "$(GREEN)Running database migrations...$(NC)"
+	dotnet ef database update --project src/SacraScriptura.Infrastructure/SacraScriptura.Infrastructure.csproj --startup-project src/SacraScriptura.API/SacraScriptura.API.csproj
 
 tests: domain-tests ## Run all tests
 
 domain-tests:
 	@echo "$(GREEN)Running domain tests...$(NC)"
 	dotnet test tests/SacraScriptura.Domain.Tests
-
-migrations:
-	@echo "$(GREEN)Running database migrations...$(NC)"
-	dotnet ef database update --project src/SacraScriptura.Infrastructure/SacraScriptura.Infrastructure.csproj --startup-project src/SacraScriptura.API/SacraScriptura.API.csproj

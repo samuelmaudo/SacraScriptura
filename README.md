@@ -1,64 +1,60 @@
-# SacraScriptura API
+# SacraScriptura
 
-Una API RESTful desarrollada con C# y .NET Core, utilizando una arquitectura limpia y una base de datos PostgreSQL.
+A RESTful API developed with C# and .NET Core, using a clean architecture and a PostgreSQL database.
 
-## Estructura del Proyecto
+## Project Structure
 
-El proyecto sigue los principios de Clean Architecture con las siguientes capas:
+The project follows the principles of Clean Architecture with the following layers:
 
-- **Domain**: Contiene las entidades y reglas de negocio.
-- **Application**: Contiene los casos de uso y lógica de aplicación.
-- **Infrastructure**: Contiene implementaciones concretas (base de datos, servicios externos, etc.).
-- **API**: Contiene los controladores y configuración de la API.
+- **API**: Contains the controllers and API configuration.
+- **Application**: Contains use cases and application logic.
+- **Domain**: Contains entities and business rules.
+- **Infrastructure**: Contains concrete implementations (database, external services, etc.).
 
-## Requisitos Previos
+## Prerequisites
 
-- [.NET Core SDK](https://dotnet.microsoft.com/download) (versión 9.0 o superior)
+- [.NET Core SDK](https://dotnet.microsoft.com/download) (version 9.0 or higher)
 - [Docker](https://www.docker.com/products/docker-desktop)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
-## Cómo Ejecutar
+## Local Development
 
-### Usando Docker Compose
+1. Clone this repository
+2. Navigate to the project folder
+3. Restore dependencies:
 
-1. Clona este repositorio
-2. Navega a la carpeta del proyecto
-3. Ejecuta el siguiente comando:
+    ```bash
+    make dependencies
+    ```
 
-```bash
-docker-compose up -d
-```
+4. Start the database:
 
-La API estará disponible en `http://localhost:8080/health` para verificar el estado.
+    ```bash
+    make db
+    ```
 
-### Desarrollo Local
+5. Run the database migrations:
 
-1. Clona este repositorio
-2. Navega a la carpeta del proyecto
-3. Restaura las dependencias:
+    ```bash
+    make migrations
+    ```
 
-```bash
-dotnet restore
-```
+6. Launch the application:
 
-4. Ejecuta la aplicación:
+    ```bash
+    make app
+    ```
 
-```bash
-dotnet run --project src/SacraScriptura.API/SacraScriptura.API.csproj
-```
+The API will be available at `http://localhost:8080/health` to check the status.
 
-## Endpoints
+## API Documentation
 
-- **GET /health**: Endpoint de healthcheck que verifica el estado de la API y la conexión a la base de datos.
-
-## Documentación de la API
-
-La documentación de la API está disponible a través de Swagger UI cuando la aplicación se ejecuta en modo de desarrollo:
+The API documentation is available through Swagger UI when the application is running in development mode:
 
 ```
 http://localhost:8080/swagger
 ```
 
-## Licencia
+## License
 
-Este proyecto está licenciado bajo la licencia MIT.
+This project is licensed under the MIT license.
