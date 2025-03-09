@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SacraScriptura.Domain.Bibles;
 using SacraScriptura.Domain.Books;
+using SacraScriptura.Domain.Divisions;
 
 namespace SacraScriptura.Infrastructure.Database;
 
@@ -10,6 +11,7 @@ public class ApplicationDbContext(
 {
     public DbSet<Bible> Bibles { get; set; }
     public DbSet<Book> Books { get; set; }
+    public DbSet<Division> Divisions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -131,6 +133,72 @@ public class ApplicationDbContext(
                       .WithMany()
                       .HasForeignKey(e => e.BibleId)
                       .OnDelete(DeleteBehavior.Cascade);
+            }
+        );
+
+        modelBuilder.Entity<Division>(
+            entity =>
+            {
+                entity.ToTable("divisions");
+
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Id)
+                      .HasConversion(
+                          id => id!.Value,
+                          value => new DivisionId(value)
+                      )
+                      .IsRequired()
+                      .HasColumnName("id")
+                      .HasMaxLength(18)
+                      .IsUnicode(false)
+                      .UseCollation("C");
+
+                entity.Property(e => e.BookId)
+                      .HasConversion(
+                          id => id!.Value,
+                          value => new BookId(value)
+                      )
+                      .IsRequired()
+                      .HasColumnName("book_id")
+                      .HasMaxLength(18)
+                      .IsUnicode(false)
+                      .UseCollation("C");
+
+                entity.Property(e => e.Title)
+                      .IsRequired()
+                      .HasColumnName("title")
+                      .HasMaxLength(255)
+                      .IsUnicode();
+
+                entity.Property(e => e.LeftValue)
+                      .IsRequired()
+                      .HasColumnName("left_value");
+
+                entity.Property(e => e.RightValue)
+                      .IsRequired()
+                      .HasColumnName("right_value");
+
+                entity.Property(e => e.Depth)
+                      .IsRequired()
+                      .HasColumnName("depth");
+
+                entity.Property(e => e.Order)
+                      .IsRequired()
+                      .HasColumnName("order");
+
+                entity.HasIndex(e => new { e.BookId, e.LeftValue });
+                entity.HasIndex(e => new { e.BookId, e.RightValue });
+                entity.HasIndex(e => new { e.BookId, e.Depth });
+
+                entity.HasOne<Book>()
+                      .WithMany()
+                      .HasForeignKey(e => e.BookId)
+                      .OnDelete(DeleteBehavior.Cascade);
+                
+                entity.Ignore(e => e.Parent);
+                entity.Ignore(e => e.Children);
+                entity.Ignore(e => e.Descendants);
             }
         );
     }
