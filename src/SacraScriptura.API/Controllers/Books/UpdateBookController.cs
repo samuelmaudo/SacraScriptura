@@ -9,7 +9,7 @@ namespace SacraScriptura.API.Controllers.Books;
 [ApiController]
 [Route("api/books/{id}")]
 public class UpdateBookController(
-    BookService bookService
+    BookUpdater bookUpdater
 ) : ControllerBase
 {
     /// <summary>
@@ -26,7 +26,7 @@ public class UpdateBookController(
     {
         try
         {
-            await bookService.UpdateBookAsync(id, bookDto);
+            await bookUpdater.UpdateAsync(id, bookDto);
             return NoContent();
         }
         catch (KeyNotFoundException)

@@ -9,7 +9,7 @@ namespace SacraScriptura.API.Controllers.Books;
 [ApiController]
 [Route("api/books/{id}")]
 public class DeleteBookController(
-    BookService bookService
+    BookDeleter bookDeleter
 ) : ControllerBase
 {
     /// <summary>
@@ -22,7 +22,7 @@ public class DeleteBookController(
     {
         try
         {
-            await bookService.DeleteBookAsync(id);
+            await bookDeleter.DeleteAsync(id);
             return NoContent();
         }
         catch (KeyNotFoundException)

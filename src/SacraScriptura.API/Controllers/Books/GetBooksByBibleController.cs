@@ -9,7 +9,7 @@ namespace SacraScriptura.API.Controllers.Books;
 [ApiController]
 [Route("api/bibles/{bibleId}/books")]
 public class GetBooksByBibleController(
-    BookService bookService
+    BookSearcher bookSearcher
 ) : ControllerBase
 {
     /// <summary>
@@ -20,7 +20,7 @@ public class GetBooksByBibleController(
     [HttpGet]
     public async Task<ActionResult<IEnumerable<BookDto>>> GetByBibleId(string bibleId)
     {
-        var books = await bookService.GetBooksByBibleIdAsync(bibleId);
+        var books = await bookSearcher.SearchByBibleIdAsync(bibleId);
         return Ok(books);
     }
 }

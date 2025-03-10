@@ -9,13 +9,21 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        // Register services
+        // Register Bible services
         services.AddScoped<BibleCreator>();
         services.AddScoped<BibleDeleter>();
         services.AddScoped<BibleFinder>();
         services.AddScoped<BibleSearcher>();
         services.AddScoped<BibleUpdater>();
-        services.AddScoped<BookService>();
+        
+        // Register Book services
+        services.AddScoped<BookCreator>();
+        services.AddScoped<BookDeleter>();
+        services.AddScoped<BookFinder>();
+        services.AddScoped<BookSearcher>();
+        services.AddScoped<BookUpdater>();
+        
+        // Register other services
         services.AddScoped<DivisionService>();
 
         return services;

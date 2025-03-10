@@ -9,7 +9,7 @@ namespace SacraScriptura.API.Controllers.Books;
 [ApiController]
 [Route("api/books")]
 public class CreateBookController(
-    BookService bookService
+    BookCreator bookCreator
 ) : ControllerBase
 {
     /// <summary>
@@ -20,7 +20,7 @@ public class CreateBookController(
     [HttpPost]
     public async Task<ActionResult<BookDto>> Create(BookDto bookDto)
     {
-        var createdBook = await bookService.CreateBookAsync(bookDto);
+        var createdBook = await bookCreator.CreateAsync(bookDto);
 
         return CreatedAtAction(
             nameof(GetBookController.GetById),

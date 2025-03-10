@@ -9,7 +9,7 @@ namespace SacraScriptura.API.Controllers.Books;
 [ApiController]
 [Route("api/books")]
 public class GetBooksController(
-    BookService bookService
+    BookSearcher bookSearcher
 ) : ControllerBase
 {
     /// <summary>
@@ -19,7 +19,7 @@ public class GetBooksController(
     [HttpGet]
     public async Task<ActionResult<IEnumerable<BookDto>>> GetAll()
     {
-        var books = await bookService.GetAllBooksAsync();
+        var books = await bookSearcher.SearchAsync();
         return Ok(books);
     }
 }

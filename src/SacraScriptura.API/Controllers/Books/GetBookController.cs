@@ -9,7 +9,7 @@ namespace SacraScriptura.API.Controllers.Books;
 [ApiController]
 [Route("api/books/{id}")]
 public class GetBookController(
-    BookService bookService
+    BookFinder bookFinder
 ) : ControllerBase
 {
     /// <summary>
@@ -22,7 +22,7 @@ public class GetBookController(
     {
         try
         {
-            var book = await bookService.GetBookByIdAsync(id);
+            var book = await bookFinder.FindAsync(id);
             return Ok(book);
         }
         catch (KeyNotFoundException)
