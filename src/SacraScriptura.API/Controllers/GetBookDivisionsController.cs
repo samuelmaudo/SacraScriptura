@@ -4,11 +4,11 @@ using SacraScriptura.Application.Divisions;
 namespace SacraScriptura.API.Controllers;
 
 /// <summary>
-/// Controller for managing book divisions.
+/// Controller for retrieving divisions by book ID.
 /// </summary>
 [ApiController]
-[Route("api/divisions")]
-public class DivisionsController(
+[Route("api/books/{bookId}/divisions")]
+public class GetBookDivisionsController(
     DivisionService divisionService
 ) : ControllerBase
 {
@@ -17,7 +17,7 @@ public class DivisionsController(
     /// </summary>
     /// <param name="bookId">The ID of the book to get divisions for.</param>
     /// <returns>A collection of divisions in hierarchical order.</returns>
-    [HttpGet("book/{bookId}")]
+    [HttpGet]
     public async Task<ActionResult<IEnumerable<DivisionDto>>> GetHierarchyByBookId(string bookId)
     {
         try
