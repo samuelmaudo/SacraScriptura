@@ -9,7 +9,7 @@ namespace SacraScriptura.API.Controllers.Bibles;
 [ApiController]
 [Route("api/bibles")]
 public class CreateBibleController(
-    BibleService bibleService
+    BibleCreator bibleCreator
 ) : ControllerBase
 {
     /// <summary>
@@ -20,7 +20,7 @@ public class CreateBibleController(
     [HttpPost]
     public async Task<ActionResult<BibleDto>> Create(BibleDto bibleDto)
     {
-        var createdBible = await bibleService.CreateBibleAsync(bibleDto);
+        var createdBible = await bibleCreator.CreateAsync(bibleDto);
 
         return CreatedAtAction(
             nameof(GetBibleController.GetById),

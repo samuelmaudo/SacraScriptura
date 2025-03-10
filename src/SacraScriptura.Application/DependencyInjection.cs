@@ -10,7 +10,11 @@ public static class DependencyInjection
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         // Register services
-        services.AddScoped<BibleService>();
+        services.AddScoped<BibleCreator>();
+        services.AddScoped<BibleDeleter>();
+        services.AddScoped<BibleFinder>();
+        services.AddScoped<BibleSearcher>();
+        services.AddScoped<BibleUpdater>();
         services.AddScoped<BookService>();
         services.AddScoped<DivisionService>();
 

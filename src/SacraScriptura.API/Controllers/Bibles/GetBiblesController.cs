@@ -9,7 +9,7 @@ namespace SacraScriptura.API.Controllers.Bibles;
 [ApiController]
 [Route("api/bibles")]
 public class GetBiblesController(
-    BibleService bibleService
+    BibleSearcher bibleSearcher
 ) : ControllerBase
 {
     /// <summary>
@@ -19,7 +19,7 @@ public class GetBiblesController(
     [HttpGet]
     public async Task<ActionResult<IEnumerable<BibleDto>>> GetAll()
     {
-        var bibles = await bibleService.GetAllBiblesAsync();
+        var bibles = await bibleSearcher.SearchAsync();
         return Ok(bibles);
     }
 }

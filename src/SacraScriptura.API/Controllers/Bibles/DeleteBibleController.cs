@@ -9,7 +9,7 @@ namespace SacraScriptura.API.Controllers.Bibles;
 [ApiController]
 [Route("api/bibles/{id}")]
 public class DeleteBibleController(
-    BibleService bibleService
+    BibleDeleter bibleDeleter
 ) : ControllerBase
 {
     /// <summary>
@@ -22,7 +22,7 @@ public class DeleteBibleController(
     {
         try
         {
-            await bibleService.DeleteBibleAsync(id);
+            await bibleDeleter.DeleteAsync(id);
             return NoContent();
         }
         catch (KeyNotFoundException)

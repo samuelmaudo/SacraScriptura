@@ -9,7 +9,7 @@ namespace SacraScriptura.API.Controllers.Bibles;
 [ApiController]
 [Route("api/bibles/{id}")]
 public class GetBibleController(
-    BibleService bibleService
+    BibleFinder bibleFinder
 ) : ControllerBase
 {
     /// <summary>
@@ -22,7 +22,7 @@ public class GetBibleController(
     {
         try
         {
-            var bible = await bibleService.GetBibleByIdAsync(id);
+            var bible = await bibleFinder.FindAsync(id);
             return Ok(bible);
         }
         catch (KeyNotFoundException)
