@@ -1,28 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
-using SacraScriptura.Application.Bibles;
+using SacraScriptura.Application.Books;
 
-namespace SacraScriptura.API.Controllers;
+namespace SacraScriptura.API.Controllers.Books;
 
 /// <summary>
-/// Controller for deleting a bible.
+/// Controller for deleting a book.
 /// </summary>
 [ApiController]
-[Route("api/bibles/{id}")]
-public class DeleteBibleController(
-    BibleService bibleService
+[Route("api/books/{id}")]
+public class DeleteBookController(
+    BookService bookService
 ) : ControllerBase
 {
     /// <summary>
-    /// Deletes a bible with the specified ID.
+    /// Deletes a book with the specified ID.
     /// </summary>
-    /// <param name="id">The ID of the bible to delete.</param>
+    /// <param name="id">The ID of the book to delete.</param>
     /// <returns>No content if successful.</returns>
     [HttpDelete]
     public async Task<IActionResult> Delete(string id)
     {
         try
         {
-            await bibleService.DeleteBibleAsync(id);
+            await bookService.DeleteBookAsync(id);
             return NoContent();
         }
         catch (KeyNotFoundException)

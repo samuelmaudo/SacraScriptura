@@ -1,14 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using SacraScriptura.Application.Books;
 
-namespace SacraScriptura.API.Controllers;
+namespace SacraScriptura.API.Controllers.Books;
 
 /// <summary>
 /// Controller for retrieving books by bible ID.
 /// </summary>
 [ApiController]
 [Route("api/bibles/{bibleId}/books")]
-public class GetBibleBooksController(
+public class GetBooksByBibleController(
     BookService bookService
 ) : ControllerBase
 {

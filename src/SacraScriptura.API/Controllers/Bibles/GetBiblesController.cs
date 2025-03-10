@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SacraScriptura.Application.Bibles;
 
-namespace SacraScriptura.API.Controllers;
+namespace SacraScriptura.API.Controllers.Bibles;
 
 /// <summary>
 /// Controller for retrieving all bibles.

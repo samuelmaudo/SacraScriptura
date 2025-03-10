@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SacraScriptura.Application.Books;
 
-namespace SacraScriptura.API.Controllers;
+namespace SacraScriptura.API.Controllers.Books;
 
 /// <summary>
 /// Controller for creating a new book.

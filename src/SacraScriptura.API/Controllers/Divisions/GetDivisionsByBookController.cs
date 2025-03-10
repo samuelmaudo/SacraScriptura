@@ -1,14 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using SacraScriptura.Application.Divisions;
 
-namespace SacraScriptura.API.Controllers;
+namespace SacraScriptura.API.Controllers.Divisions;
 
 /// <summary>
 /// Controller for retrieving divisions by book ID.
 /// </summary>
 [ApiController]
 [Route("api/books/{bookId}/divisions")]
-public class GetBookDivisionsController(
+public class GetDivisionsByBookController(
     DivisionService divisionService
 ) : ControllerBase
 {
