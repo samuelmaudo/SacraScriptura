@@ -7,7 +7,9 @@ namespace SacraScriptura.Infrastructure.AI;
 /// Implementation of the embeddings generator using Ollama with Semantic Kernel.
 /// </summary>
 public class SemanticKernelEmbeddingsGenerator(
+#pragma warning disable SKEXP0001
     ITextEmbeddingGenerationService embeddingService
+#pragma warning restore SKEXP0001
 ) : IEmbeddingsGenerator
 {
     /// <inheritdoc />

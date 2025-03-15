@@ -165,6 +165,21 @@ public class ApplicationDbContext(
                       .IsUnicode(false)
                       .UseCollation("C");
 
+                entity.Property(e => e.ParentId)
+                      .HasConversion(
+                            id => id!.Value,
+                            value => new DivisionId(value)
+                      )
+                      .IsRequired(false)
+                      .HasColumnName("parent_id")
+                      .HasMaxLength(18)
+                      .IsUnicode(false)
+                      .UseCollation("C");
+
+                entity.Property(e => e.Order)
+                      .IsRequired()
+                      .HasColumnName("order");
+
                 entity.Property(e => e.Title)
                       .IsRequired()
                       .HasColumnName("title")
@@ -183,10 +198,6 @@ public class ApplicationDbContext(
                       .IsRequired()
                       .HasColumnName("depth");
 
-                entity.Property(e => e.Order)
-                      .IsRequired()
-                      .HasColumnName("order");
-
                 entity.HasIndex(e => new { e.BookId, e.LeftValue });
                 entity.HasIndex(e => new { e.BookId, e.RightValue });
                 entity.HasIndex(e => new { e.BookId, e.Depth });
@@ -194,6 +205,11 @@ public class ApplicationDbContext(
                 entity.HasOne<Book>()
                       .WithMany()
                       .HasForeignKey(e => e.BookId)
+                      .OnDelete(DeleteBehavior.Cascade);
+                
+                entity.HasOne<Division>()
+                      .WithMany()
+                      .HasForeignKey(e => e.ParentId)
                       .OnDelete(DeleteBehavior.Cascade);
                 
                 entity.Ignore(e => e.Parent);

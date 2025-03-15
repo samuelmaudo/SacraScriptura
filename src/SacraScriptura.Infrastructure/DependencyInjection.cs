@@ -50,6 +50,7 @@ public static class DependencyInjection
         var serviceProvider = services.BuildServiceProvider();
         var ollamaOptions = serviceProvider.GetRequiredService<IOptions<OllamaOptions>>().Value;
 
+#pragma warning disable SKEXP0070
         services.AddOllamaTextEmbeddingGeneration(
             ollamaOptions.EmbeddingsModel,
             new HttpClient
@@ -58,6 +59,7 @@ public static class DependencyInjection
                 Timeout = TimeSpan.FromSeconds(ollamaOptions.TimeoutSeconds)
             }
         );
+#pragma warning restore SKEXP0070
 
         services.AddScoped<IEmbeddingsGenerator, SemanticKernelEmbeddingsGenerator>();
 

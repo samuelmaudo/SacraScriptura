@@ -17,6 +17,16 @@ public class Division
     /// Gets or sets the book this division belongs to.
     /// </summary>
     public BookId? BookId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the parent division's unique identifier.
+    /// </summary>
+    public DivisionId? ParentId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the order of this division among its book.
+    /// </summary>
+    public int Order { get; set; }
     
     /// <summary>
     /// Gets or sets the title of this division.
@@ -37,11 +47,6 @@ public class Division
     /// Gets or sets the depth of this node in the tree hierarchy.
     /// </summary>
     public int Depth { get; set; }
-    
-    /// <summary>
-    /// Gets or sets the order of this division among its siblings.
-    /// </summary>
-    public int Order { get; set; }
     
     /// <summary>
     /// Determines if this division is a leaf node (has no children).
