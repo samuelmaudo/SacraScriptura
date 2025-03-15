@@ -18,6 +18,7 @@ public class DeleteBibleController(
     /// <param name="id">The ID of the bible to delete.</param>
     /// <returns>No content if successful.</returns>
     [HttpDelete]
+    [Tags("Bibles")]
     public async Task<IActionResult> Delete(string id)
     {
         try

@@ -18,6 +18,7 @@ public class GetBookController(
     /// <param name="id">The ID of the book to retrieve.</param>
     /// <returns>The book with the specified ID.</returns>
     [HttpGet]
+    [Tags("Books")]
     public async Task<ActionResult<BookDto>> GetById(string id)
     {
         try

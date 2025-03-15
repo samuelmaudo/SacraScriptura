@@ -18,6 +18,7 @@ public class GetDivisionsByBookController(
     /// <param name="bookId">The ID of the book to get divisions for.</param>
     /// <returns>A collection of divisions in hierarchical order.</returns>
     [HttpGet]
+    [Tags("Divisions")]
     public async Task<ActionResult<IEnumerable<DivisionDto>>> GetHierarchyByBookId(string bookId)
     {
         try

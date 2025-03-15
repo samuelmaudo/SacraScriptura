@@ -19,6 +19,7 @@ public class UpdateBibleController(
     /// <param name="bibleDto">The updated bible data.</param>
     /// <returns>No content if successful.</returns>
     [HttpPut]
+    [Tags("Bibles")]
     public async Task<IActionResult> Update(
         string id,
         BibleDto bibleDto

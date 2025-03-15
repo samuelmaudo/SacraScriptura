@@ -18,6 +18,7 @@ public class GetBibleController(
     /// <param name="id">The ID of the bible to retrieve.</param>
     /// <returns>The bible with the specified ID.</returns>
     [HttpGet]
+    [Tags("Bibles")]
     public async Task<ActionResult<BibleDto>> GetById(string id)
     {
         try

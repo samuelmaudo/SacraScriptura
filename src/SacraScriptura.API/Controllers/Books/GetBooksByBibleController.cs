@@ -18,6 +18,7 @@ public class GetBooksByBibleController(
     /// <param name="bibleId">The ID of the bible to get books for.</param>
     /// <returns>A collection of books for the specified bible.</returns>
     [HttpGet]
+    [Tags("Books")]
     public async Task<ActionResult<IEnumerable<BookDto>>> GetByBibleId(string bibleId)
     {
         var books = await bookSearcher.SearchByBibleIdAsync(bibleId);

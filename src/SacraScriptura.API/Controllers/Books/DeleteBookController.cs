@@ -18,6 +18,7 @@ public class DeleteBookController(
     /// <param name="id">The ID of the book to delete.</param>
     /// <returns>No content if successful.</returns>
     [HttpDelete]
+    [Tags("Books")]
     public async Task<IActionResult> Delete(string id)
     {
         try

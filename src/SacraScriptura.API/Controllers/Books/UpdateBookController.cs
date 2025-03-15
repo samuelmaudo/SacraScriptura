@@ -19,6 +19,7 @@ public class UpdateBookController(
     /// <param name="bookDto">The updated book data.</param>
     /// <returns>No content if successful.</returns>
     [HttpPut]
+    [Tags("Books")]
     public async Task<IActionResult> Update(
         string id,
         BookDto bookDto

@@ -17,6 +17,7 @@ public class GetBooksController(
     /// </summary>
     /// <returns>A collection of all books.</returns>
     [HttpGet]
+    [Tags("Books")]
     public async Task<ActionResult<IEnumerable<BookDto>>> GetAll()
     {
         var books = await bookSearcher.SearchAsync();

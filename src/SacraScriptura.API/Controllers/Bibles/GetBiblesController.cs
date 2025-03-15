@@ -17,6 +17,7 @@ public class GetBiblesController(
     /// </summary>
     /// <returns>A collection of all bibles.</returns>
     [HttpGet]
+    [Tags("Bibles")]
     public async Task<ActionResult<IEnumerable<BibleDto>>> GetAll()
     {
         var bibles = await bibleSearcher.SearchAsync();

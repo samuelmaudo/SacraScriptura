@@ -6,6 +6,7 @@ using Microsoft.SemanticKernel;
 using SacraScriptura.Domain.Bibles;
 using SacraScriptura.Domain.Books;
 using SacraScriptura.Domain.Common;
+using SacraScriptura.Domain.Divisions;
 using SacraScriptura.Infrastructure.AI;
 using SacraScriptura.Infrastructure.Database;
 using SacraScriptura.Infrastructure.Database.Repositories;
@@ -32,6 +33,7 @@ public static class DependencyInjection
         // Register repositories
         services.AddScoped<IBibleRepository, BibleRepository>();
         services.AddScoped<IBookRepository, BookRepository>();
+        services.AddScoped<IDivisionRepository, DivisionRepository>();
 
         // Configure AI services
         services.AddOllama(configuration);

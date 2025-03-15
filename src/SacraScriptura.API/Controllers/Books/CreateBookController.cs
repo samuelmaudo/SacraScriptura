@@ -18,6 +18,7 @@ public class CreateBookController(
     /// <param name="bookDto">The book data to create.</param>
     /// <returns>The created book.</returns>
     [HttpPost]
+    [Tags("Books")]
     public async Task<ActionResult<BookDto>> Create(BookDto bookDto)
     {
         var createdBook = await bookCreator.CreateAsync(bookDto);

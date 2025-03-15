@@ -18,6 +18,7 @@ public class CreateBibleController(
     /// <param name="bibleDto">The bible data to create.</param>
     /// <returns>The created bible.</returns>
     [HttpPost]
+    [Tags("Bibles")]
     public async Task<ActionResult<BibleDto>> Create(BibleDto bibleDto)
     {
         var createdBible = await bibleCreator.CreateAsync(bibleDto);
