@@ -64,7 +64,7 @@ clean: ## Remove all containers, images, and volumes
 
 app: ## Launch the application
 	@echo "$(GREEN)Launching application...$(NC)"
-	dotnet run --launch-profile http --project=src/SacraScriptura.API
+	dotnet run --launch-profile http --project=src/SacraScriptura.Admin.API
 
 dependencies:
 	@echo "$(GREEN)Restoring dependencies...$(NC)"
@@ -72,15 +72,15 @@ dependencies:
 
 migrations:
 	@echo "$(GREEN)Running database migrations...$(NC)"
-	dotnet ef database update --project src/SacraScriptura.Infrastructure/SacraScriptura.Infrastructure.csproj --startup-project src/SacraScriptura.API/SacraScriptura.API.csproj
+	dotnet ef database update --project src/SacraScriptura.Admin.Infrastructure --startup-project src/SacraScriptura.Admin.API
 
 add-migration: ## Create a new migration
 	@read -p "Enter migration name: " name; \
 	 echo "$(GREEN)Adding migration '$$name'...$(NC)"; \
-	 dotnet ef migrations add $$name --project src/SacraScriptura.Infrastructure/SacraScriptura.Infrastructure.csproj --startup-project src/SacraScriptura.API/SacraScriptura.API.csproj
+	 dotnet ef migrations add $$name --project src/SacraScriptura.Admin.Infrastructure --startup-project src/SacraScriptura.Admin.API
 
 tests: domain-tests ## Run all tests
 
 domain-tests: ## Run domain tests
 	@echo "$(GREEN)Running domain tests...$(NC)"
-	dotnet test tests/SacraScriptura.Domain.Tests
+	dotnet test tests/SacraScriptura.Shared.Domain.Tests

@@ -4,17 +4,21 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Domain", "src\SacraScriptura.Domain\SacraScriptura.Domain.csproj", "{E3DC1094-3526-4150-9B31-8AEA3D81F0D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Admin.Domain", "src\SacraScriptura.Admin.Domain\SacraScriptura.Admin.Domain.csproj", "{E3DC1094-3526-4150-9B31-8AEA3D81F0D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Application", "src\SacraScriptura.Application\SacraScriptura.Application.csproj", "{9E869FC7-9DC7-45E8-A9E5-D70CE6E3F606}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Admin.Application", "src\SacraScriptura.Admin.Application\SacraScriptura.Admin.Application.csproj", "{9E869FC7-9DC7-45E8-A9E5-D70CE6E3F606}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Infrastructure", "src\SacraScriptura.Infrastructure\SacraScriptura.Infrastructure.csproj", "{6BB75839-277A-402C-86BD-4A4BAE6A72E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Admin.Infrastructure", "src\SacraScriptura.Admin.Infrastructure\SacraScriptura.Admin.Infrastructure.csproj", "{6BB75839-277A-402C-86BD-4A4BAE6A72E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.API", "src\SacraScriptura.API\SacraScriptura.API.csproj", "{1C8054A8-6B17-410D-AEB6-72C323A239D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Admin.API", "src\SacraScriptura.Admin.API\SacraScriptura.Admin.API.csproj", "{1C8054A8-6B17-410D-AEB6-72C323A239D3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D2E35C9F-6E6B-4D52-9E6A-0A0A9A3C9A7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Domain.Tests", "tests\SacraScriptura.Domain.Tests\SacraScriptura.Domain.Tests.csproj", "{5F8F9A3D-E9A7-4D2E-A5A0-F7A3E8C6F0F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Shared.Domain.Tests", "tests\SacraScriptura.Shared.Domain.Tests\SacraScriptura.Shared.Domain.Tests.csproj", "{5F8F9A3D-E9A7-4D2E-A5A0-F7A3E8C6F0F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Shared.Domain", "SacraScriptura.Shared.Domain\SacraScriptura.Shared.Domain.csproj", "{0F26489A-5C91-4223-8D9E-0CD98D82B857}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Shared.Infrastructure", "SacraScriptura.Shared.Infrastructure\SacraScriptura.Shared.Infrastructure.csproj", "{3D32BACC-503A-4753-AFD5-0132636306DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,6 +90,30 @@ Global
 		{5F8F9A3D-E9A7-4D2E-A5A0-F7A3E8C6F0F0}.Release|x64.Build.0 = Release|Any CPU
 		{5F8F9A3D-E9A7-4D2E-A5A0-F7A3E8C6F0F0}.Release|x86.ActiveCfg = Release|Any CPU
 		{5F8F9A3D-E9A7-4D2E-A5A0-F7A3E8C6F0F0}.Release|x86.Build.0 = Release|Any CPU
+		{0F26489A-5C91-4223-8D9E-0CD98D82B857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F26489A-5C91-4223-8D9E-0CD98D82B857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F26489A-5C91-4223-8D9E-0CD98D82B857}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0F26489A-5C91-4223-8D9E-0CD98D82B857}.Debug|x64.Build.0 = Debug|Any CPU
+		{0F26489A-5C91-4223-8D9E-0CD98D82B857}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0F26489A-5C91-4223-8D9E-0CD98D82B857}.Debug|x86.Build.0 = Debug|Any CPU
+		{0F26489A-5C91-4223-8D9E-0CD98D82B857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F26489A-5C91-4223-8D9E-0CD98D82B857}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F26489A-5C91-4223-8D9E-0CD98D82B857}.Release|x64.ActiveCfg = Release|Any CPU
+		{0F26489A-5C91-4223-8D9E-0CD98D82B857}.Release|x64.Build.0 = Release|Any CPU
+		{0F26489A-5C91-4223-8D9E-0CD98D82B857}.Release|x86.ActiveCfg = Release|Any CPU
+		{0F26489A-5C91-4223-8D9E-0CD98D82B857}.Release|x86.Build.0 = Release|Any CPU
+		{3D32BACC-503A-4753-AFD5-0132636306DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D32BACC-503A-4753-AFD5-0132636306DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D32BACC-503A-4753-AFD5-0132636306DD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3D32BACC-503A-4753-AFD5-0132636306DD}.Debug|x64.Build.0 = Debug|Any CPU
+		{3D32BACC-503A-4753-AFD5-0132636306DD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3D32BACC-503A-4753-AFD5-0132636306DD}.Debug|x86.Build.0 = Debug|Any CPU
+		{3D32BACC-503A-4753-AFD5-0132636306DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D32BACC-503A-4753-AFD5-0132636306DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D32BACC-503A-4753-AFD5-0132636306DD}.Release|x64.ActiveCfg = Release|Any CPU
+		{3D32BACC-503A-4753-AFD5-0132636306DD}.Release|x64.Build.0 = Release|Any CPU
+		{3D32BACC-503A-4753-AFD5-0132636306DD}.Release|x86.ActiveCfg = Release|Any CPU
+		{3D32BACC-503A-4753-AFD5-0132636306DD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,5 +124,7 @@ Global
 		{6BB75839-277A-402C-86BD-4A4BAE6A72E6} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{1C8054A8-6B17-410D-AEB6-72C323A239D3} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{5F8F9A3D-E9A7-4D2E-A5A0-F7A3E8C6F0F0} = {D2E35C9F-6E6B-4D52-9E6A-0A0A9A3C9A7E}
+		{0F26489A-5C91-4223-8D9E-0CD98D82B857} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{3D32BACC-503A-4753-AFD5-0132636306DD} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal
