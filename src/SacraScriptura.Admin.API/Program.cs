@@ -27,21 +27,6 @@ builder.Services.AddHealthChecks()
            tags: ["db", "postgresql"]
        );
 
-// Configure Kestrel to listen on all interfaces
-builder.WebHost.ConfigureKestrel(
-    serverOptions =>
-    {
-        // HTTP
-        serverOptions.ListenAnyIP(8080);
-
-        // HTTPS
-        serverOptions.ListenAnyIP(
-            8443,
-            listenOptions => { listenOptions.UseHttps(); }
-        );
-    }
-);
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -53,9 +38,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 }
 
-app.UseSwagger();
-app.UseSwaggerUI();
-app.MapOpenApi();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.MapOpenApi();
+}
 
 // Health check endpoint with detailed response
 app.MapHealthChecks(

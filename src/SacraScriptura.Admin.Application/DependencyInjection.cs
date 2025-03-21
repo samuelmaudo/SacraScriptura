@@ -23,8 +23,8 @@ public static class DependencyInjection
         services.AddScoped<BookSearcher>();
         services.AddScoped<BookUpdater>();
         
-        // Register other services
-        services.AddScoped<DivisionService>();
+        // Register Division services
+        services.AddScoped<DivisionSearcher>();
 
         return services;
     }

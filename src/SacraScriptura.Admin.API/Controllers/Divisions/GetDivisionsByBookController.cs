@@ -9,7 +9,7 @@ namespace SacraScriptura.Admin.API.Controllers.Divisions;
 [ApiController]
 [Route("api/books/{bookId}/divisions")]
 public class GetDivisionsByBookController(
-    DivisionService divisionService
+    DivisionSearcher divisionSearcher
 ) : ControllerBase
 {
     /// <summary>
@@ -23,7 +23,7 @@ public class GetDivisionsByBookController(
     {
         try
         {
-            var divisions = await divisionService.GetDivisionHierarchyForBookAsync(bookId);
+            var divisions = await divisionSearcher.SearchHierarchyAsync(bookId);
             return Ok(divisions);
         }
         catch (ArgumentException ex)

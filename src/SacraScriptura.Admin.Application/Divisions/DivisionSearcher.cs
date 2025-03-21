@@ -6,14 +6,14 @@ namespace SacraScriptura.Admin.Application.Divisions;
 /// <summary>
 /// Application service for managing book divisions.
 /// </summary>
-public class DivisionService(
-    Admin.Domain.Divisions.DivisionService divisionService
+public class DivisionSearcher(
+    DivisionService divisionService
 )
 {
     /// <summary>
     /// Gets the hierarchical structure of divisions for a book.
     /// </summary>
-    public async Task<IEnumerable<DivisionDto>> GetDivisionHierarchyForBookAsync(string bookId)
+    public async Task<IEnumerable<DivisionDto>> SearchHierarchyAsync(string bookId)
     {
         var bookIdObj = new BookId(bookId);
         var divisions = await divisionService.GetDivisionHierarchyForBookAsync(bookIdObj);
