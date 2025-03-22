@@ -13,7 +13,7 @@ public class DivisionSearcher(
     /// <summary>
     /// Gets the hierarchical structure of divisions for a book.
     /// </summary>
-    public async Task<IEnumerable<DivisionDto>> SearchHierarchyAsync(string bookId)
+    public async Task<IEnumerable<DivisionDto>> SearchHierarchyByBookIdAsync(string bookId)
     {
         var bookIdObj = new BookId(bookId);
         var divisions = await divisionService.GetDivisionHierarchyForBookAsync(bookIdObj);

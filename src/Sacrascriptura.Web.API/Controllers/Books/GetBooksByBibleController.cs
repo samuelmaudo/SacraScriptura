@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using SacraScriptura.Admin.Application.Bibles;
-using SacraScriptura.Admin.Application.Books;
+using SacraScriptura.Web.Application.Bibles;
+using SacraScriptura.Web.Application.Books;
+using SacraScriptura.Web.Domain.Books;
 
-namespace SacraScriptura.Admin.API.Controllers.Books;
+namespace SacraScriptura.Web.API.Controllers.Books;
 
 /// <summary>
 /// Controller for retrieving books by bible ID.
@@ -10,8 +11,8 @@ namespace SacraScriptura.Admin.API.Controllers.Books;
 [ApiController]
 [Route("api/bibles/{bibleId}/books")]
 public class GetBooksByBibleController(
-    BibleFinder bibleFinder,
-    BookSearcher bookSearcher
+    BibleRecordFinder bibleFinder,
+    BookRecordSearcher bookSearcher
 ) : ControllerBase
 {
     /// <summary>
@@ -21,7 +22,7 @@ public class GetBooksByBibleController(
     /// <returns>A collection of books for the specified bible.</returns>
     [HttpGet]
     [Tags("Books")]
-    public async Task<ActionResult<IEnumerable<BookDto>>> GetByBibleId(string bibleId)
+    public async Task<ActionResult<IEnumerable<BookRecord>>> GetByBibleId(string bibleId)
     {
         try
         {

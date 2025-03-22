@@ -23,7 +23,7 @@ public class GetDivisionsByBookController(
     {
         try
         {
-            var divisions = await divisionSearcher.SearchHierarchyAsync(bookId);
+            var divisions = await divisionSearcher.SearchHierarchyByBookIdAsync(bookId);
             return Ok(divisions);
         }
         catch (ArgumentException ex)
