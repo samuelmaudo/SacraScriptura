@@ -27,43 +27,9 @@ services:
         reservations:
           memory: 4G   # Memoria garantizada mínima
     restart: unless-stopped
-    command: |
-      bash -c '
-        # Iniciar el servidor Ollama
-        ollama serve &
-        
-        # Esperar a que el servidor esté listo
-        echo "Esperando a que el servidor Ollama esté listo..."
-        until curl -s --output /dev/null --fail http://localhost:11434/api/version; do
-          echo "Esperando a Ollama..."
-          sleep 2
-        done
-        echo "¡Servidor Ollama listo!"
-        
-        # Descargar y cargar el modelo E5-base-multilingual para embeddings (siempre activo)
-        echo "Descargando y cargando E5-base-multilingual para embeddings..."
-        ollama pull intfloat/multilingual-e5-base
-        echo "Modelo E5-base-multilingual listo para embeddings"
-        
-        # Configurar explícitamente E5-base-multilingual para embeddings
-        echo 'FROM intfloat/multilingual-e5-base' > /tmp/e5-embeddings.modelfile
-        echo 'PARAMETER temperature 0.0' >> /tmp/e5-embeddings.modelfile
-        echo 'PARAMETER embedding_only true' >> /tmp/e5-embeddings.modelfile
-        ollama create e5-embeddings -f /tmp/e5-embeddings.modelfile
-        
-        # Crear un archivo Modelfile para Mistral 7B (solo se descargará bajo demanda)
-        echo "Preparando configuración para Mistral 7B (modelo a demanda para resúmenes)..."
-        echo 'FROM mistral:7b' > /tmp/mistral-summarization.modelfile
-        echo 'PARAMETER temperature 0.1' >> /tmp/mistral-summarization.modelfile
-        ollama create mistral-summarization -f /tmp/mistral-summarization.modelfile --no-pull
-        
-        echo "Configuración de modelos completada. E5-base-multilingual está listo para embeddings, y Mistral 7B se descargará cuando sea necesario para resúmenes."
-        
-        # Mantener el contenedor en ejecución
-        tail -f /dev/null
-      '
+    entrypoint: ["ollama", "serve"]
     healthcheck:
-      test: ["CMD", "curl", "-s", "-f", "http://localhost:11434/api/embeddings"]
+      test: ["CMD", "curl", "-s", "-f", "http://localhost:11434/api/version"]
       interval: 30s
       timeout: 10s
       retries: 3
