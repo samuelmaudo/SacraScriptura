@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SacraScriptura.Shared.Domain\SacraScriptura.Shared.Domain.csproj" />
+    <ProjectReference Include="..\SacraScriptura.Shared.Domain\SacraScriptura.Shared.Domain.csproj" />
   </ItemGroup>
 
 </Project>

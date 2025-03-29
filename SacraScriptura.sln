@@ -16,9 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D2E35C9F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Shared.Domain.Tests", "tests\SacraScriptura.Shared.Domain.Tests\SacraScriptura.Shared.Domain.Tests.csproj", "{5F8F9A3D-E9A7-4D2E-A5A0-F7A3E8C6F0F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Shared.Domain", "SacraScriptura.Shared.Domain\SacraScriptura.Shared.Domain.csproj", "{0F26489A-5C91-4223-8D9E-0CD98D82B857}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Shared.Domain", "src\SacraScriptura.Shared.Domain\SacraScriptura.Shared.Domain.csproj", "{0F26489A-5C91-4223-8D9E-0CD98D82B857}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Shared.Infrastructure", "SacraScriptura.Shared.Infrastructure\SacraScriptura.Shared.Infrastructure.csproj", "{3D32BACC-503A-4753-AFD5-0132636306DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacraScriptura.Shared.Infrastructure", "src\SacraScriptura.Shared.Infrastructure\SacraScriptura.Shared.Infrastructure.csproj", "{3D32BACC-503A-4753-AFD5-0132636306DD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sacrascriptura.Web.API", "src\Sacrascriptura.Web.API\Sacrascriptura.Web.API.csproj", "{6E1D17DF-9D99-45C1-AF43-A6C38B7C6BE5}"
 EndProject

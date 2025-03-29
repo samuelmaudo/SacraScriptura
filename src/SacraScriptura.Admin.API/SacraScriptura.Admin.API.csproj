@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SacraScriptura.Shared.Infrastructure\SacraScriptura.Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\SacraScriptura.Shared.Infrastructure\SacraScriptura.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\SacraScriptura.Admin.Domain\SacraScriptura.Admin.Domain.csproj" />
     <ProjectReference Include="..\SacraScriptura.Admin.Application\SacraScriptura.Admin.Application.csproj" />
     <ProjectReference Include="..\SacraScriptura.Admin.Infrastructure\SacraScriptura.Admin.Infrastructure.csproj" />
