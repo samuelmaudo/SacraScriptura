@@ -8,9 +8,7 @@ namespace SacraScriptura.Admin.API.Controllers.Books;
 /// </summary>
 [ApiController]
 [Route("api/books/{id}")]
-public class UpdateBookController(
-    BookUpdater bookUpdater
-) : ControllerBase
+public class UpdateBookController(BookUpdater bookUpdater) : ControllerBase
 {
     /// <summary>
     /// Updates a book with the specified ID.
@@ -20,10 +18,7 @@ public class UpdateBookController(
     /// <returns>No content if successful.</returns>
     [HttpPut]
     [Tags("Books")]
-    public async Task<IActionResult> Update(
-        string id,
-        BookDto bookDto
-    )
+    public async Task<IActionResult> Update(string id, BookDto bookDto)
     {
         try
         {

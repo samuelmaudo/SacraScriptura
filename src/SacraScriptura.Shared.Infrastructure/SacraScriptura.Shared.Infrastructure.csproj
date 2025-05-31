@@ -1,20 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.3" />
-      <PackageReference Include="Microsoft.SemanticKernel" Version="1.42.0" />
-      <PackageReference Include="Microsoft.SemanticKernel.Connectors.Ollama" Version="1.42.0-alpha" />
-      <PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.42.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\SacraScriptura.Shared.Domain\SacraScriptura.Shared.Domain.csproj" />
-    </ItemGroup>
-
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference
+      Include="Microsoft.Extensions.Options.ConfigurationExtensions"
+      Version="9.0.3"
+    />
+    <PackageReference Include="Microsoft.SemanticKernel" Version="1.42.0" />
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.Ollama" Version="1.42.0-alpha" />
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.42.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SacraScriptura.Shared.Domain\SacraScriptura.Shared.Domain.csproj" />
+  </ItemGroup>
 </Project>

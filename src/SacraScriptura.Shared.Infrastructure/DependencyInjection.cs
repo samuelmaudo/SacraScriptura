@@ -15,9 +15,7 @@ public static class DependencyInjection
         IConfiguration configuration
     )
     {
-        services.Configure<OllamaOptions>(
-            configuration.GetSection(OllamaOptions.SectionName)
-        );
+        services.Configure<OllamaOptions>(configuration.GetSection(OllamaOptions.SectionName));
         var serviceProvider = services.BuildServiceProvider();
         var ollamaOptions = serviceProvider.GetRequiredService<IOptions<OllamaOptions>>().Value;
 
@@ -27,7 +25,7 @@ public static class DependencyInjection
             new HttpClient
             {
                 BaseAddress = new Uri(ollamaOptions.BaseUrl),
-                Timeout = TimeSpan.FromSeconds(ollamaOptions.TimeoutSeconds)
+                Timeout = TimeSpan.FromSeconds(ollamaOptions.TimeoutSeconds),
             }
         );
 #pragma warning restore SKEXP0070

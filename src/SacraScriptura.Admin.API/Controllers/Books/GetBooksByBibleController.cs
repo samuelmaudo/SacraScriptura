@@ -9,10 +9,8 @@ namespace SacraScriptura.Admin.API.Controllers.Books;
 /// </summary>
 [ApiController]
 [Route("api/bibles/{bibleId}/books")]
-public class GetBooksByBibleController(
-    BibleFinder bibleFinder,
-    BookSearcher bookSearcher
-) : ControllerBase
+public class GetBooksByBibleController(BibleFinder bibleFinder, BookSearcher bookSearcher)
+    : ControllerBase
 {
     /// <summary>
     /// Gets all books for a specific bible.

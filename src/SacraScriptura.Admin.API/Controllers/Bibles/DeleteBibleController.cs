@@ -8,9 +8,7 @@ namespace SacraScriptura.Admin.API.Controllers.Bibles;
 /// </summary>
 [ApiController]
 [Route("api/bibles/{id}")]
-public class DeleteBibleController(
-    BibleDeleter bibleDeleter
-) : ControllerBase
+public class DeleteBibleController(BibleDeleter bibleDeleter) : ControllerBase
 {
     /// <summary>
     /// Deletes a bible with the specified ID.

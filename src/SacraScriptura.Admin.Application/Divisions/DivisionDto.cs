@@ -44,7 +44,7 @@ public class DivisionDto
     /// Gets or sets the order among siblings.
     /// </summary>
     public int Order { get; set; }
-    
+
     /// <summary>
     /// Gets or sets the collection of child divisions.
     /// </summary>

@@ -2,9 +2,7 @@ using SacraScriptura.Admin.Domain.Bibles;
 
 namespace SacraScriptura.Admin.Application.Bibles;
 
-public class BibleSearcher(
-    IBibleRepository bibleRepository
-)
+public class BibleSearcher(IBibleRepository bibleRepository)
 {
     public async Task<IEnumerable<BibleDto>> SearchAsync()
     {
@@ -22,7 +20,7 @@ public class BibleSearcher(
             Version = bible.Version,
             Description = bible.Description,
             PublisherName = bible.PublisherName,
-            Year = bible.Year
+            Year = bible.Year,
         };
     }
 }

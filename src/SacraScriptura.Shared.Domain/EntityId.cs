@@ -52,7 +52,10 @@ public abstract class EntityId : IEquatable<EntityId>, IComparable<EntityId>
 
         if (value.Length != Length)
         {
-            throw new ArgumentException($"Identifier must be exactly {Length} characters long.", nameof(value));
+            throw new ArgumentException(
+                $"Identifier must be exactly {Length} characters long.",
+                nameof(value)
+            );
         }
 
         if (!Base58.IsValidId(value))

@@ -3,14 +3,9 @@ using SacraScriptura.Admin.Domain.Books;
 
 namespace SacraScriptura.Admin.Application.Books;
 
-public class BookUpdater(
-    IBookRepository bookRepository
-)
+public class BookUpdater(IBookRepository bookRepository)
 {
-    public async Task UpdateAsync(
-        string id,
-        BookDto bookDto
-    )
+    public async Task UpdateAsync(string id, BookDto bookDto)
     {
         var bookId = new BookId(id);
         var existingBook = await bookRepository.GetByIdAsync(bookId);
@@ -34,7 +29,7 @@ public class BookUpdater(
             BibleId = new BibleId(dto.BibleId),
             Name = dto.Name,
             ShortName = dto.ShortName,
-            Position = dto.Position
+            Position = dto.Position,
         };
     }
 }

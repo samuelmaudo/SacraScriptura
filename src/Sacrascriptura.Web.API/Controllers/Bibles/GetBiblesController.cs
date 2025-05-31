@@ -9,9 +9,7 @@ namespace SacraScriptura.Web.API.Controllers.Bibles;
 /// </summary>
 [ApiController]
 [Route("api/bibles")]
-public class GetBiblesController(
-    BibleRecordSearcher bibleSearcher
-) : ControllerBase
+public class GetBiblesController(BibleRecordSearcher bibleSearcher) : ControllerBase
 {
     /// <summary>
     /// Gets all bibles.

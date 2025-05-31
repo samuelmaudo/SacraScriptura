@@ -3,9 +3,7 @@ using SacraScriptura.Web.Domain.Divisions;
 
 namespace SacraScriptura.Web.Infrastructure.Database.Repositories;
 
-public class DivisionRecordRepository(
-    string connectionString
-) : IDivisionRecordRepository
+public class DivisionRecordRepository(string connectionString) : IDivisionRecordRepository
 {
     public async Task<DivisionRecord?> GetByIdAsync(string id)
     {
@@ -71,7 +69,9 @@ public class DivisionRecordRepository(
         return divisions.AsReadOnly();
     }
 
-    private static IReadOnlyList<DivisionRecord> BuildHierarchy(IReadOnlyList<DivisionRecord> allDivisions)
+    private static IReadOnlyList<DivisionRecord> BuildHierarchy(
+        IReadOnlyList<DivisionRecord> allDivisions
+    )
     {
         var stack = new Stack<MutableDivision>();
         var roots = new List<MutableDivision>();
@@ -97,9 +97,7 @@ public class DivisionRecordRepository(
         return roots.Select(r => r.ToDivisionRecord()).ToList().AsReadOnly();
     }
 
-    private class MutableDivision(
-        DivisionRecord division
-    )
+    private class MutableDivision(DivisionRecord division)
     {
         private string Id { get; } = division.Id;
         private string BookId { get; } = division.BookId;

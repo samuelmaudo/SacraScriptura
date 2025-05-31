@@ -2,9 +2,7 @@ using SacraScriptura.Admin.Domain.Bibles;
 
 namespace SacraScriptura.Admin.Application.Bibles;
 
-public class BibleCreator(
-    IBibleRepository bibleRepository
-)
+public class BibleCreator(IBibleRepository bibleRepository)
 {
     public async Task<BibleDto> CreateAsync(BibleDto bibleDto)
     {
@@ -26,7 +24,7 @@ public class BibleCreator(
             Version = bible.Version,
             Description = bible.Description,
             PublisherName = bible.PublisherName,
-            Year = bible.Year
+            Year = bible.Year,
         };
     }
 
@@ -40,7 +38,7 @@ public class BibleCreator(
             Version = dto.Version,
             Description = dto.Description,
             PublisherName = dto.PublisherName,
-            Year = dto.Year
+            Year = dto.Year,
         };
     }
 }

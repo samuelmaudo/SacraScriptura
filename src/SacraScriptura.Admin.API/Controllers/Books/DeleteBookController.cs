@@ -8,9 +8,7 @@ namespace SacraScriptura.Admin.API.Controllers.Books;
 /// </summary>
 [ApiController]
 [Route("api/books/{id}")]
-public class DeleteBookController(
-    BookDeleter bookDeleter
-) : ControllerBase
+public class DeleteBookController(BookDeleter bookDeleter) : ControllerBase
 {
     /// <summary>
     /// Deletes a book with the specified ID.

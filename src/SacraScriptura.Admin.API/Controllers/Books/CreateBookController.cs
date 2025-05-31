@@ -8,9 +8,7 @@ namespace SacraScriptura.Admin.API.Controllers.Books;
 /// </summary>
 [ApiController]
 [Route("api/books")]
-public class CreateBookController(
-    BookCreator bookCreator
-) : ControllerBase
+public class CreateBookController(BookCreator bookCreator) : ControllerBase
 {
     /// <summary>
     /// Creates a new book.

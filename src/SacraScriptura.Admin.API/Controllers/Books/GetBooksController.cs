@@ -8,9 +8,7 @@ namespace SacraScriptura.Admin.API.Controllers.Books;
 /// </summary>
 [ApiController]
 [Route("api/books")]
-public class GetBooksController(
-    BookSearcher bookSearcher
-) : ControllerBase
+public class GetBooksController(BookSearcher bookSearcher) : ControllerBase
 {
     /// <summary>
     /// Gets all books.

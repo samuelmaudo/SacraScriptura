@@ -3,9 +3,7 @@ using SacraScriptura.Admin.Domain.Bibles;
 
 namespace SacraScriptura.Admin.Infrastructure.Database.Repositories;
 
-public class BibleRepository(
-    ApplicationDbContext context
-) : IBibleRepository
+public class BibleRepository(ApplicationDbContext context) : IBibleRepository
 {
     public async Task<IEnumerable<Bible>> GetAllAsync()
     {
@@ -17,13 +15,11 @@ public class BibleRepository(
         return await context.Bibles.FindAsync(id);
     }
 
-    public async Task<Bible?> GetByNameAndVersionAsync(
-        string name,
-        string version
-    )
+    public async Task<Bible?> GetByNameAndVersionAsync(string name, string version)
     {
-        return await context.Bibles
-                            .FirstOrDefaultAsync(b => b.Name == name && b.Version == version);
+        return await context.Bibles.FirstOrDefaultAsync(b =>
+            b.Name == name && b.Version == version
+        );
     }
 
     public async Task AddAsync(Bible bible)

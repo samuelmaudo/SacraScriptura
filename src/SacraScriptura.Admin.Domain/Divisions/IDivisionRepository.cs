@@ -50,42 +50,27 @@ public interface IDivisionRepository
     /// <summary>
     /// Adds a new division as a child of a parent division.
     /// </summary>
-    Task AddAsChildAsync(
-        Division division,
-        DivisionId parentId
-    );
+    Task AddAsChildAsync(Division division, DivisionId parentId);
 
     /// <summary>
     /// Adds a new division as the first child of a parent division.
     /// </summary>
-    Task AddAsFirstChildAsync(
-        Division division,
-        DivisionId parentId
-    );
+    Task AddAsFirstChildAsync(Division division, DivisionId parentId);
 
     /// <summary>
     /// Adds a new division as the last child of a parent division.
     /// </summary>
-    Task AddAsLastChildAsync(
-        Division division,
-        DivisionId parentId
-    );
+    Task AddAsLastChildAsync(Division division, DivisionId parentId);
 
     /// <summary>
     /// Adds a new division as a sibling before the specified division.
     /// </summary>
-    Task AddBeforeAsync(
-        Division division,
-        DivisionId siblingId
-    );
+    Task AddBeforeAsync(Division division, DivisionId siblingId);
 
     /// <summary>
     /// Adds a new division as a sibling after the specified division.
     /// </summary>
-    Task AddAfterAsync(
-        Division division,
-        DivisionId siblingId
-    );
+    Task AddAfterAsync(Division division, DivisionId siblingId);
 
     /// <summary>
     /// Updates a division.
@@ -95,26 +80,17 @@ public interface IDivisionRepository
     /// <summary>
     /// Moves a division to be a child of a new parent.
     /// </summary>
-    Task MoveToChildOfAsync(
-        DivisionId divisionId,
-        DivisionId newParentId
-    );
+    Task MoveToChildOfAsync(DivisionId divisionId, DivisionId newParentId);
 
     /// <summary>
     /// Moves a division to be before a sibling.
     /// </summary>
-    Task MoveBeforeAsync(
-        DivisionId divisionId,
-        DivisionId siblingId
-    );
+    Task MoveBeforeAsync(DivisionId divisionId, DivisionId siblingId);
 
     /// <summary>
     /// Moves a division to be after a sibling.
     /// </summary>
-    Task MoveAfterAsync(
-        DivisionId divisionId,
-        DivisionId siblingId
-    );
+    Task MoveAfterAsync(DivisionId divisionId, DivisionId siblingId);
 
     /// <summary>
     /// Deletes a division and all its descendants.

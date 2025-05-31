@@ -5,23 +5,20 @@ namespace SacraScriptura.Shared.Domain.Tests;
 
 public class UserId : EntityId
 {
-    public UserId()
-    {
-    }
+    public UserId() { }
 
-    public UserId(string value) : base(value)
-    {
-    }
+    public UserId(string value)
+        : base(value) { }
 
-    public UserId(DateTimeOffset dateTimeOffset) : base(dateTimeOffset)
-    {
-    }
+    public UserId(DateTimeOffset dateTimeOffset)
+        : base(dateTimeOffset) { }
 }
 
 public class EntityIdTests
 {
     // Alphabet used for the IDs: 123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz
-    private const string ValidCharacters = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+    private const string ValidCharacters =
+        "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
     private const int IdLength = 18;
 
     [Fact]
@@ -84,7 +81,7 @@ public class EntityIdTests
         // Allow a small tolerance of 1 second to account for processing time
         Assert.True(
             extractedTimestamp >= beforeCreation.AddSeconds(-1)
-            && extractedTimestamp <= afterCreation.AddSeconds(1),
+                && extractedTimestamp <= afterCreation.AddSeconds(1),
             $"Extracted timestamp ({extractedTimestamp}) should be close to creation time (between {beforeCreation} and {afterCreation})"
         );
     }

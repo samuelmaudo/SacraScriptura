@@ -18,9 +18,15 @@ public static class DependencyInjection
         var databaseConnection = configuration.GetConnectionString("DefaultConnection");
 
         // Register repositories
-        services.AddScoped<IBibleRecordRepository>(_ => new BibleRecordRepository(databaseConnection));
-        services.AddScoped<IBookRecordRepository>(_ => new BookRecordRepository(databaseConnection));
-        services.AddScoped<IDivisionRecordRepository>(_ => new DivisionRecordRepository(databaseConnection));
+        services.AddScoped<IBibleRecordRepository>(_ => new BibleRecordRepository(
+            databaseConnection
+        ));
+        services.AddScoped<IBookRecordRepository>(_ => new BookRecordRepository(
+            databaseConnection
+        ));
+        services.AddScoped<IDivisionRecordRepository>(_ => new DivisionRecordRepository(
+            databaseConnection
+        ));
 
         return services;
     }

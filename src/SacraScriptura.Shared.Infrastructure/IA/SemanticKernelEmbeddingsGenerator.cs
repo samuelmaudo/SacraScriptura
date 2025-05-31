@@ -38,8 +38,6 @@ public class SemanticKernelEmbeddingsGenerator(
             cancellationToken: cancellationToken
         );
 
-        return embeddings
-               .Select(IReadOnlyList<float> (e) => e.ToArray())
-               .ToList();
+        return embeddings.Select(IReadOnlyList<float> (e) => e.ToArray()).ToList();
     }
 }

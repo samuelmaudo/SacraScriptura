@@ -4,9 +4,8 @@ using Microsoft.Extensions.Configuration;
 
 namespace SacraScriptura.Admin.Infrastructure.Database;
 
-public class ApplicationDbContextFactory(
-    IConfiguration configuration
-) : IDesignTimeDbContextFactory<ApplicationDbContext>
+public class ApplicationDbContextFactory(IConfiguration configuration)
+    : IDesignTimeDbContextFactory<ApplicationDbContext>
 {
     public ApplicationDbContext CreateDbContext(string[] args)
     {

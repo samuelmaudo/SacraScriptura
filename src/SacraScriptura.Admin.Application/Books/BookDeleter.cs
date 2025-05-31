@@ -2,9 +2,7 @@ using SacraScriptura.Admin.Domain.Books;
 
 namespace SacraScriptura.Admin.Application.Books;
 
-public class BookDeleter(
-    IBookRepository bookRepository
-)
+public class BookDeleter(IBookRepository bookRepository)
 {
     public async Task DeleteAsync(string id)
     {

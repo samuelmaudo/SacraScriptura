@@ -11,7 +11,10 @@ public interface IEmbeddingsGenerator
     /// <param name="text">The text from which to generate the embedding.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>A vector of float values representing the text embedding.</returns>
-    Task<IReadOnlyList<float>> GenerateEmbeddingAsync(string text, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<float>> GenerateEmbeddingAsync(
+        string text,
+        CancellationToken cancellationToken = default
+    );
 
     /// <summary>
     /// Generates multiple embedding vectors from a collection of texts.
@@ -20,6 +23,7 @@ public interface IEmbeddingsGenerator
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>A collection of float vectors representing the text embeddings.</returns>
     Task<IReadOnlyList<IReadOnlyList<float>>> GenerateEmbeddingsAsync(
-        IEnumerable<string> texts, 
-        CancellationToken cancellationToken = default);
+        IEnumerable<string> texts,
+        CancellationToken cancellationToken = default
+    );
 }

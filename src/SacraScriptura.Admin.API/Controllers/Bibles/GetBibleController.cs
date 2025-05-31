@@ -8,9 +8,7 @@ namespace SacraScriptura.Admin.API.Controllers.Bibles;
 /// </summary>
 [ApiController]
 [Route("api/bibles/{id}")]
-public class GetBibleController(
-    BibleFinder bibleFinder
-) : ControllerBase
+public class GetBibleController(BibleFinder bibleFinder) : ControllerBase
 {
     /// <summary>
     /// Gets a bible by its ID.

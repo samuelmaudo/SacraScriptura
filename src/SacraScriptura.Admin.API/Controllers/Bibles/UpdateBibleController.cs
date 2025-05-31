@@ -8,9 +8,7 @@ namespace SacraScriptura.Admin.API.Controllers.Bibles;
 /// </summary>
 [ApiController]
 [Route("api/bibles/{id}")]
-public class UpdateBibleController(
-    BibleUpdater bibleUpdater
-) : ControllerBase
+public class UpdateBibleController(BibleUpdater bibleUpdater) : ControllerBase
 {
     /// <summary>
     /// Updates a bible with the specified ID.
@@ -20,10 +18,7 @@ public class UpdateBibleController(
     /// <returns>No content if successful.</returns>
     [HttpPut]
     [Tags("Bibles")]
-    public async Task<IActionResult> Update(
-        string id,
-        BibleDto bibleDto
-    )
+    public async Task<IActionResult> Update(string id, BibleDto bibleDto)
     {
         try
         {

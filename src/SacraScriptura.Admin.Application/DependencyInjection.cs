@@ -15,14 +15,14 @@ public static class DependencyInjection
         services.AddScoped<BibleFinder>();
         services.AddScoped<BibleSearcher>();
         services.AddScoped<BibleUpdater>();
-        
+
         // Register Book services
         services.AddScoped<BookCreator>();
         services.AddScoped<BookDeleter>();
         services.AddScoped<BookFinder>();
         services.AddScoped<BookSearcher>();
         services.AddScoped<BookUpdater>();
-        
+
         // Register Division services
         services.AddScoped<DivisionSearcher>();
 

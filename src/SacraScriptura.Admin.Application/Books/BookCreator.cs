@@ -3,9 +3,7 @@ using SacraScriptura.Admin.Domain.Books;
 
 namespace SacraScriptura.Admin.Application.Books;
 
-public class BookCreator(
-    IBookRepository bookRepository
-)
+public class BookCreator(IBookRepository bookRepository)
 {
     public async Task<BookDto> CreateAsync(BookDto bookDto)
     {
@@ -25,7 +23,7 @@ public class BookCreator(
             BibleId = book.BibleId?.Value ?? string.Empty,
             Name = book.Name,
             ShortName = book.ShortName,
-            Position = book.Position
+            Position = book.Position,
         };
     }
 
@@ -37,7 +35,7 @@ public class BookCreator(
             BibleId = new BibleId(dto.BibleId),
             Name = dto.Name,
             ShortName = dto.ShortName,
-            Position = dto.Position
+            Position = dto.Position,
         };
     }
 }

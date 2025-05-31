@@ -4,9 +4,7 @@ using SacraScriptura.Admin.Domain.Books;
 
 namespace SacraScriptura.Admin.Infrastructure.Database.Repositories;
 
-public class BookRepository(
-    ApplicationDbContext context
-) : IBookRepository
+public class BookRepository(ApplicationDbContext context) : IBookRepository
 {
     public async Task<IEnumerable<Book>> GetAllAsync()
     {
@@ -20,10 +18,10 @@ public class BookRepository(
 
     public async Task<IEnumerable<Book>> GetByBibleIdAsync(BibleId bibleId)
     {
-        return await context.Books
-                           .Where(b => b.BibleId == bibleId)
-                           .OrderBy(b => b.Position)
-                           .ToListAsync();
+        return await context
+            .Books.Where(b => b.BibleId == bibleId)
+            .OrderBy(b => b.Position)
+            .ToListAsync();
     }
 
     public async Task AddAsync(Book book)

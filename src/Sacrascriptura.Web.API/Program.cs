@@ -1,9 +1,9 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using SacraScriptura.Shared.Infrastructure;
 using SacraScriptura.Web.Application;
 using SacraScriptura.Web.Infrastructure;
-using SacraScriptura.Shared.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,13 +17,14 @@ builder.Services.AddWebInfrastructure(builder.Configuration);
 builder.Services.AddSharedInfrastructure(builder.Configuration);
 
 // Add health checks
-builder.Services.AddHealthChecks()
-       .AddNpgSql(
-           builder.Configuration.GetConnectionString("DefaultConnection"),
-           name: "database",
-           failureStatus: HealthStatus.Unhealthy,
-           tags: ["db", "postgresql"]
-       );
+builder
+    .Services.AddHealthChecks()
+    .AddNpgSql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        name: "database",
+        failureStatus: HealthStatus.Unhealthy,
+        tags: ["db", "postgresql"]
+    );
 
 var app = builder.Build();
 
@@ -42,34 +43,31 @@ app.MapOpenApi();
 
 // Health check endpoint with detailed response
 app.MapHealthChecks(
-    "/health",
-    new HealthCheckOptions
-    {
-        ResponseWriter = async (
-            context,
-            report
-        ) =>
+        "/health",
+        new HealthCheckOptions
         {
-            context.Response.ContentType = "application/json";
-
-            var response = new
+            ResponseWriter = async (context, report) =>
             {
-                Status = report.Status.ToString(),
-                Duration = report.TotalDuration,
-                Info = report.Entries.Select(
-                    e => new
+                context.Response.ContentType = "application/json";
+
+                var response = new
+                {
+                    Status = report.Status.ToString(),
+                    Duration = report.TotalDuration,
+                    Info = report.Entries.Select(e => new
                     {
                         Key = e.Key,
                         Status = e.Value.Status.ToString(),
                         Description = e.Value.Description,
-                        Duration = e.Value.Duration
-                    }
-                )
-            };
+                        Duration = e.Value.Duration,
+                    }),
+                };
 
-            await context.Response.WriteAsync(JsonSerializer.Serialize(response));
+                await context.Response.WriteAsync(JsonSerializer.Serialize(response));
+            },
         }
-    }
-).WithName("health").WithOpenApi();
+    )
+    .WithName("health")
+    .WithOpenApi();
 
 app.Run();

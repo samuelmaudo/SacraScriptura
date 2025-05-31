@@ -2,9 +2,7 @@ using SacraScriptura.Admin.Domain.Bibles;
 
 namespace SacraScriptura.Admin.Application.Bibles;
 
-public class BibleDeleter(
-    IBibleRepository bibleRepository
-)
+public class BibleDeleter(IBibleRepository bibleRepository)
 {
     public async Task DeleteAsync(string id)
     {

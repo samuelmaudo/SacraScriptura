@@ -3,9 +3,7 @@ using SacraScriptura.Web.Domain.Bibles;
 
 namespace SacraScriptura.Web.Application.Bibles;
 
-public class BibleRecordFinder(
-    IBibleRecordRepository repository
-)
+public class BibleRecordFinder(IBibleRecordRepository repository)
 {
     public async Task<BibleRecord> FindAsync(string id)
     {

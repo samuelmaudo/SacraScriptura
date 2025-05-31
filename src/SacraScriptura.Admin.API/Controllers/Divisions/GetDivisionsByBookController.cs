@@ -8,9 +8,7 @@ namespace SacraScriptura.Admin.API.Controllers.Divisions;
 /// </summary>
 [ApiController]
 [Route("api/books/{bookId}/divisions")]
-public class GetDivisionsByBookController(
-    DivisionSearcher divisionSearcher
-) : ControllerBase
+public class GetDivisionsByBookController(DivisionSearcher divisionSearcher) : ControllerBase
 {
     /// <summary>
     /// Gets all divisions for a book in hierarchical order.

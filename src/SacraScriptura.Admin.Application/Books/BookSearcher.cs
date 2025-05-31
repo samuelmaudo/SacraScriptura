@@ -3,9 +3,7 @@ using SacraScriptura.Admin.Domain.Books;
 
 namespace SacraScriptura.Admin.Application.Books;
 
-public class BookSearcher(
-    IBookRepository bookRepository
-)
+public class BookSearcher(IBookRepository bookRepository)
 {
     public async Task<IEnumerable<BookDto>> SearchAsync()
     {
@@ -28,7 +26,7 @@ public class BookSearcher(
             BibleId = book.BibleId?.Value ?? string.Empty,
             Name = book.Name,
             ShortName = book.ShortName,
-            Position = book.Position
+            Position = book.Position,
         };
     }
 }

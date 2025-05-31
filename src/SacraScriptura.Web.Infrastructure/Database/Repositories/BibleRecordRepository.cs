@@ -3,9 +3,7 @@ using SacraScriptura.Web.Domain.Bibles;
 
 namespace SacraScriptura.Web.Infrastructure.Database.Repositories;
 
-public class BibleRecordRepository(
-    string connectionString
-) : IBibleRecordRepository
+public class BibleRecordRepository(string connectionString) : IBibleRecordRepository
 {
     public async Task<IReadOnlyList<BibleRecord>> GetAllAsync()
     {

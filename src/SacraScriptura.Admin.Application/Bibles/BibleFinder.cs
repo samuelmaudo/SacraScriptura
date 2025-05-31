@@ -2,9 +2,7 @@ using SacraScriptura.Admin.Domain.Bibles;
 
 namespace SacraScriptura.Admin.Application.Bibles;
 
-public class BibleFinder(
-    IBibleRepository bibleRepository
-)
+public class BibleFinder(IBibleRepository bibleRepository)
 {
     public async Task<BibleDto> FindAsync(string id)
     {
@@ -29,7 +27,7 @@ public class BibleFinder(
             Version = bible.Version,
             Description = bible.Description,
             PublisherName = bible.PublisherName,
-            Year = bible.Year
+            Year = bible.Year,
         };
     }
 }

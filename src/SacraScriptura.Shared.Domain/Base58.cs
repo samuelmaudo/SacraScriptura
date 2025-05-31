@@ -48,7 +48,8 @@ public static class Base58
         foreach (char c in @string)
         {
             int digit = Alphabet.IndexOf(c);
-            if (digit < 0) {
+            if (digit < 0)
+            {
                 throw new ArgumentException($"Character '{c}' is not in the alphabet.");
             }
             result = result * Base + digit;
@@ -70,7 +71,7 @@ public static class Base58
                 return false;
             }
         }
-            
+
         return true;
     }
 }

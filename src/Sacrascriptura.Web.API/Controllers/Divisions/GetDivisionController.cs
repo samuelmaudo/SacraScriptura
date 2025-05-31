@@ -9,9 +9,7 @@ namespace SacraScriptura.Web.API.Controllers.Divisions;
 /// </summary>
 [ApiController]
 [Route("api/divisions/{id}")]
-public class GetDivisionController(
-    DivisionRecordFinder divisionFinder
-) : ControllerBase
+public class GetDivisionController(DivisionRecordFinder divisionFinder) : ControllerBase
 {
     /// <summary>
     /// Gets a division by its ID.

@@ -7,17 +7,15 @@ namespace SacraScriptura.Admin.Infrastructure.Database.Repositories;
 /// <summary>
 /// Repository implementation for managing Division entities using the Nested Sets pattern.
 /// </summary>
-public class DivisionRepository(
-    ApplicationDbContext context
-) : IDivisionRepository
+public class DivisionRepository(ApplicationDbContext context) : IDivisionRepository
 {
     /// <summary>
     /// Gets all divisions.
     /// </summary>
     public async Task<IEnumerable<Division>> GetAllAsync()
     {
-        return await context.Divisions
-            .OrderBy(d => d.BookId)
+        return await context
+            .Divisions.OrderBy(d => d.BookId)
             .ThenBy(d => d.LeftValue)
             .ToListAsync();
     }
@@ -35,8 +33,8 @@ public class DivisionRepository(
     /// </summary>
     public async Task<IEnumerable<Division>> GetByBookIdAsync(BookId bookId)
     {
-        return await context.Divisions
-            .Where(d => d.BookId == bookId)
+        return await context
+            .Divisions.Where(d => d.BookId == bookId)
             .OrderBy(d => d.LeftValue)
             .ToListAsync();
     }
@@ -48,8 +46,8 @@ public class DivisionRepository(
     {
         // Obtener todas las divisiones del libro ordenadas por LeftValue
         // Esto garantiza que los padres aparezcan antes que sus hijos
-        var divisions = await context.Divisions
-            .Where(d => d.BookId == bookId)
+        var divisions = await context
+            .Divisions.Where(d => d.BookId == bookId)
             .OrderBy(d => d.LeftValue)
             .ToListAsync();
 
@@ -89,8 +87,8 @@ public class DivisionRepository(
         }
 
         // En el patrón Nested Sets, los hijos directos son aquellos cuyo padre es el nodo actual
-        return await context.Divisions
-            .Where(d => d.ParentId == parentId)
+        return await context
+            .Divisions.Where(d => d.ParentId == parentId)
             .OrderBy(d => d.Order)
             .ToListAsync();
     }
@@ -108,10 +106,12 @@ public class DivisionRepository(
 
         // En el patrón Nested Sets, los ancestros son aquellos nodos que contienen al nodo actual
         // Es decir, left < division.left y right > division.right
-        return await context.Divisions
-            .Where(d => d.BookId == division.BookId &&
-                        d.LeftValue < division.LeftValue &&
-                        d.RightValue > division.RightValue)
+        return await context
+            .Divisions.Where(d =>
+                d.BookId == division.BookId
+                && d.LeftValue < division.LeftValue
+                && d.RightValue > division.RightValue
+            )
             .OrderBy(d => d.LeftValue)
             .ToListAsync();
     }
@@ -129,10 +129,12 @@ public class DivisionRepository(
 
         // En el patrón Nested Sets, los descendientes son aquellos nodos contenidos dentro del nodo actual
         // Es decir, left > division.left y right < division.right
-        return await context.Divisions
-            .Where(d => d.BookId == division.BookId &&
-                        d.LeftValue > division.LeftValue &&
-                        d.RightValue < division.RightValue)
+        return await context
+            .Divisions.Where(d =>
+                d.BookId == division.BookId
+                && d.LeftValue > division.LeftValue
+                && d.RightValue < division.RightValue
+            )
             .OrderBy(d => d.LeftValue)
             .ToListAsync();
     }
@@ -143,8 +145,7 @@ public class DivisionRepository(
     public async Task AddAsync(Division division)
     {
         // Si no hay divisiones para este libro, esta será la primera
-        var anyDivisions = await context.Divisions
-            .AnyAsync(d => d.BookId == division.BookId);
+        var anyDivisions = await context.Divisions.AnyAsync(d => d.BookId == division.BookId);
 
         if (!anyDivisions)
         {
@@ -157,12 +158,12 @@ public class DivisionRepository(
         else
         {
             // Si no se especifica un padre, se añade como hermano de las divisiones raíz existentes
-            var maxRightValue = await context.Divisions
-                .Where(d => d.BookId == division.BookId && d.Depth == 0)
+            var maxRightValue = await context
+                .Divisions.Where(d => d.BookId == division.BookId && d.Depth == 0)
                 .MaxAsync(d => d.RightValue);
 
-            var maxOrder = await context.Divisions
-                .Where(d => d.BookId == division.BookId && d.Depth == 0)
+            var maxOrder = await context
+                .Divisions.Where(d => d.BookId == division.BookId && d.Depth == 0)
                 .MaxAsync(d => d.Order);
 
             // Actualizar todos los nodos con RightValue >= maxRightValue
@@ -193,8 +194,12 @@ public class DivisionRepository(
     /// </summary>
     public async Task AddAsFirstChildAsync(Division division, DivisionId parentId)
     {
-        var parent = await context.Divisions.FindAsync(parentId)
-            ?? throw new ArgumentException($"Parent division with ID {parentId} not found", nameof(parentId));
+        var parent =
+            await context.Divisions.FindAsync(parentId)
+            ?? throw new ArgumentException(
+                $"Parent division with ID {parentId} not found",
+                nameof(parentId)
+            );
 
         // Verificar que la división pertenece al mismo libro que el padre
         division.BookId = parent.BookId;
@@ -215,10 +220,9 @@ public class DivisionRepository(
         division.Order = 0;
 
         // Incrementar Order de los hermanos existentes
-        await context.Divisions
-            .Where(d => d.ParentId == parentId && d.Id != division.Id)
-            .ExecuteUpdateAsync(s => s
-                .SetProperty(d => d.Order, d => d.Order + 1));
+        await context
+            .Divisions.Where(d => d.ParentId == parentId && d.Id != division.Id)
+            .ExecuteUpdateAsync(s => s.SetProperty(d => d.Order, d => d.Order + 1));
 
         await context.Divisions.AddAsync(division);
         await context.SaveChangesAsync();
@@ -229,8 +233,12 @@ public class DivisionRepository(
     /// </summary>
     public async Task AddAsLastChildAsync(Division division, DivisionId parentId)
     {
-        var parent = await context.Divisions.FindAsync(parentId)
-            ?? throw new ArgumentException($"Parent division with ID {parentId} not found", nameof(parentId));
+        var parent =
+            await context.Divisions.FindAsync(parentId)
+            ?? throw new ArgumentException(
+                $"Parent division with ID {parentId} not found",
+                nameof(parentId)
+            );
 
         // Verificar que la división pertenece al mismo libro que el padre
         division.BookId = parent.BookId;
@@ -238,8 +246,8 @@ public class DivisionRepository(
         division.Depth = parent.Depth + 1;
 
         // Obtener el máximo orden entre los hijos existentes
-        var maxOrder = await context.Divisions
-            .Where(d => d.ParentId == parentId)
+        var maxOrder = await context
+            .Divisions.Where(d => d.ParentId == parentId)
             .Select(d => d.Order)
             .DefaultIfEmpty(-1)
             .MaxAsync();
@@ -267,8 +275,12 @@ public class DivisionRepository(
     /// </summary>
     public async Task AddBeforeAsync(Division division, DivisionId siblingId)
     {
-        var sibling = await context.Divisions.FindAsync(siblingId)
-            ?? throw new ArgumentException($"Sibling division with ID {siblingId} not found", nameof(siblingId));
+        var sibling =
+            await context.Divisions.FindAsync(siblingId)
+            ?? throw new ArgumentException(
+                $"Sibling division with ID {siblingId} not found",
+                nameof(siblingId)
+            );
 
         // Verificar que la división pertenece al mismo libro que el hermano
         division.BookId = sibling.BookId;
@@ -289,10 +301,11 @@ public class DivisionRepository(
         division.Order = sibling.Order;
 
         // Incrementar Order de los hermanos a partir del actual
-        await context.Divisions
-            .Where(d => d.ParentId == sibling.ParentId && d.Order >= sibling.Order && d.Id != division.Id)
-            .ExecuteUpdateAsync(s => s
-                .SetProperty(d => d.Order, d => d.Order + 1));
+        await context
+            .Divisions.Where(d =>
+                d.ParentId == sibling.ParentId && d.Order >= sibling.Order && d.Id != division.Id
+            )
+            .ExecuteUpdateAsync(s => s.SetProperty(d => d.Order, d => d.Order + 1));
 
         await context.Divisions.AddAsync(division);
         await context.SaveChangesAsync();
@@ -303,8 +316,12 @@ public class DivisionRepository(
     /// </summary>
     public async Task AddAfterAsync(Division division, DivisionId siblingId)
     {
-        var sibling = await context.Divisions.FindAsync(siblingId)
-            ?? throw new ArgumentException($"Sibling division with ID {siblingId} not found", nameof(siblingId));
+        var sibling =
+            await context.Divisions.FindAsync(siblingId)
+            ?? throw new ArgumentException(
+                $"Sibling division with ID {siblingId} not found",
+                nameof(siblingId)
+            );
 
         // Verificar que la división pertenece al mismo libro que el hermano
         division.BookId = sibling.BookId;
@@ -325,10 +342,11 @@ public class DivisionRepository(
         division.Order = sibling.Order + 1;
 
         // Incrementar Order de los hermanos posteriores
-        await context.Divisions
-            .Where(d => d.ParentId == sibling.ParentId && d.Order > sibling.Order && d.Id != division.Id)
-            .ExecuteUpdateAsync(s => s
-                .SetProperty(d => d.Order, d => d.Order + 1));
+        await context
+            .Divisions.Where(d =>
+                d.ParentId == sibling.ParentId && d.Order > sibling.Order && d.Id != division.Id
+            )
+            .ExecuteUpdateAsync(s => s.SetProperty(d => d.Order, d => d.Order + 1));
 
         await context.Divisions.AddAsync(division);
         await context.SaveChangesAsync();
@@ -348,11 +366,19 @@ public class DivisionRepository(
     /// </summary>
     public async Task MoveToChildOfAsync(DivisionId divisionId, DivisionId newParentId)
     {
-        var division = await context.Divisions.FindAsync(divisionId)
-            ?? throw new ArgumentException($"Division with ID {divisionId} not found", nameof(divisionId));
+        var division =
+            await context.Divisions.FindAsync(divisionId)
+            ?? throw new ArgumentException(
+                $"Division with ID {divisionId} not found",
+                nameof(divisionId)
+            );
 
-        var newParent = await context.Divisions.FindAsync(newParentId)
-            ?? throw new ArgumentException($"New parent division with ID {newParentId} not found", nameof(newParentId));
+        var newParent =
+            await context.Divisions.FindAsync(newParentId)
+            ?? throw new ArgumentException(
+                $"New parent division with ID {newParentId} not found",
+                nameof(newParentId)
+            );
 
         // Verificar que ambas divisiones pertenecen al mismo libro
         if (division.BookId != newParent.BookId)
@@ -373,7 +399,8 @@ public class DivisionRepository(
         await UpdateRightValuesAsync(division.BookId, newParent.RightValue, nodeSize);
 
         // Calcular el desplazamiento para los nodos del subárbol
-        int leftOffset, rightOffset;
+        int leftOffset,
+            rightOffset;
 
         // Si movemos hacia adelante en el árbol
         if (newParent.RightValue > division.RightValue)
@@ -392,10 +419,12 @@ public class DivisionRepository(
         int depthDiff = newParent.Depth + 1 - division.Depth;
 
         // Obtener todos los nodos del subárbol que se va a mover
-        var subtreeNodes = await context.Divisions
-            .Where(d => d.BookId == division.BookId &&
-                        d.LeftValue >= division.LeftValue &&
-                        d.RightValue <= division.RightValue)
+        var subtreeNodes = await context
+            .Divisions.Where(d =>
+                d.BookId == division.BookId
+                && d.LeftValue >= division.LeftValue
+                && d.RightValue <= division.RightValue
+            )
             .ToListAsync();
 
         // Actualizar temporalmente los valores a negativos para evitar conflictos
@@ -419,8 +448,8 @@ public class DivisionRepository(
         division.ParentId = newParentId;
 
         // Actualizar el orden entre hermanos
-        var maxOrder = await context.Divisions
-            .Where(d => d.ParentId == newParentId && d.Id != divisionId)
+        var maxOrder = await context
+            .Divisions.Where(d => d.ParentId == newParentId && d.Id != divisionId)
             .Select(d => d.Order)
             .DefaultIfEmpty(-1)
             .MaxAsync();
@@ -435,11 +464,19 @@ public class DivisionRepository(
     /// </summary>
     public async Task MoveBeforeAsync(DivisionId divisionId, DivisionId siblingId)
     {
-        var division = await context.Divisions.FindAsync(divisionId)
-            ?? throw new ArgumentException($"Division with ID {divisionId} not found", nameof(divisionId));
+        var division =
+            await context.Divisions.FindAsync(divisionId)
+            ?? throw new ArgumentException(
+                $"Division with ID {divisionId} not found",
+                nameof(divisionId)
+            );
 
-        var sibling = await context.Divisions.FindAsync(siblingId)
-            ?? throw new ArgumentException($"Sibling division with ID {siblingId} not found", nameof(siblingId));
+        var sibling =
+            await context.Divisions.FindAsync(siblingId)
+            ?? throw new ArgumentException(
+                $"Sibling division with ID {siblingId} not found",
+                nameof(siblingId)
+            );
 
         // Verificar que ambas divisiones pertenecen al mismo libro
         if (division.BookId != sibling.BookId)
@@ -456,7 +493,9 @@ public class DivisionRepository(
         // Primero mover la división para que sea hijo del mismo padre que el hermano
         if (division.ParentId != sibling.ParentId)
         {
-            var parentId = sibling.ParentId ?? throw new InvalidOperationException("Sibling must have a parent");
+            var parentId =
+                sibling.ParentId
+                ?? throw new InvalidOperationException("Sibling must have a parent");
             await MoveToChildOfAsync(divisionId, parentId);
 
             // Recargar la división después de moverla
@@ -467,13 +506,14 @@ public class DivisionRepository(
         if (division.Order > sibling.Order)
         {
             // Incrementar el orden de las divisiones entre el hermano y la división
-            await context.Divisions
-                .Where(d => d.ParentId == sibling.ParentId &&
-                            d.Order >= sibling.Order &&
-                            d.Order < division.Order &&
-                            d.Id != divisionId)
-                .ExecuteUpdateAsync(s => s
-                    .SetProperty(d => d.Order, d => d.Order + 1));
+            await context
+                .Divisions.Where(d =>
+                    d.ParentId == sibling.ParentId
+                    && d.Order >= sibling.Order
+                    && d.Order < division.Order
+                    && d.Id != divisionId
+                )
+                .ExecuteUpdateAsync(s => s.SetProperty(d => d.Order, d => d.Order + 1));
 
             // Actualizar el orden de la división
             division.Order = sibling.Order;
@@ -486,11 +526,19 @@ public class DivisionRepository(
     /// </summary>
     public async Task MoveAfterAsync(DivisionId divisionId, DivisionId siblingId)
     {
-        var division = await context.Divisions.FindAsync(divisionId)
-            ?? throw new ArgumentException($"Division with ID {divisionId} not found", nameof(divisionId));
+        var division =
+            await context.Divisions.FindAsync(divisionId)
+            ?? throw new ArgumentException(
+                $"Division with ID {divisionId} not found",
+                nameof(divisionId)
+            );
 
-        var sibling = await context.Divisions.FindAsync(siblingId)
-            ?? throw new ArgumentException($"Sibling division with ID {siblingId} not found", nameof(siblingId));
+        var sibling =
+            await context.Divisions.FindAsync(siblingId)
+            ?? throw new ArgumentException(
+                $"Sibling division with ID {siblingId} not found",
+                nameof(siblingId)
+            );
 
         // Verificar que ambas divisiones pertenecen al mismo libro
         if (division.BookId != sibling.BookId)
@@ -507,7 +555,9 @@ public class DivisionRepository(
         // Primero mover la división para que sea hijo del mismo padre que el hermano
         if (division.ParentId != sibling.ParentId)
         {
-            var parentId = sibling.ParentId ?? throw new InvalidOperationException("Sibling must have a parent");
+            var parentId =
+                sibling.ParentId
+                ?? throw new InvalidOperationException("Sibling must have a parent");
             await MoveToChildOfAsync(divisionId, parentId);
 
             // Recargar la división después de moverla
@@ -518,13 +568,14 @@ public class DivisionRepository(
         if (division.Order < sibling.Order)
         {
             // Decrementar el orden de las divisiones entre la división y el hermano
-            await context.Divisions
-                .Where(d => d.ParentId == sibling.ParentId &&
-                            d.Order > division.Order &&
-                            d.Order <= sibling.Order &&
-                            d.Id != divisionId)
-                .ExecuteUpdateAsync(s => s
-                    .SetProperty(d => d.Order, d => d.Order - 1));
+            await context
+                .Divisions.Where(d =>
+                    d.ParentId == sibling.ParentId
+                    && d.Order > division.Order
+                    && d.Order <= sibling.Order
+                    && d.Id != divisionId
+                )
+                .ExecuteUpdateAsync(s => s.SetProperty(d => d.Order, d => d.Order - 1));
 
             // Actualizar el orden de la división
             division.Order = sibling.Order;
@@ -537,37 +588,39 @@ public class DivisionRepository(
     /// </summary>
     public async Task DeleteAsync(DivisionId id)
     {
-        var division = await context.Divisions.FindAsync(id)
+        var division =
+            await context.Divisions.FindAsync(id)
             ?? throw new ArgumentException($"Division with ID {id} not found", nameof(id));
 
         // Calcular el tamaño del subárbol que se va a eliminar
         int nodeSize = division.RightValue - division.LeftValue + 1;
 
         // Eliminar la división y todos sus descendientes
-        await context.Divisions
-            .Where(d => d.BookId == division.BookId &&
-                        d.LeftValue >= division.LeftValue &&
-                        d.RightValue <= division.RightValue)
+        await context
+            .Divisions.Where(d =>
+                d.BookId == division.BookId
+                && d.LeftValue >= division.LeftValue
+                && d.RightValue <= division.RightValue
+            )
             .ExecuteDeleteAsync();
 
         // Actualizar los valores de los nodos restantes
-        await context.Divisions
-            .Where(d => d.BookId == division.BookId && d.RightValue > division.RightValue)
-            .ExecuteUpdateAsync(s => s
-                .SetProperty(d => d.RightValue, d => d.RightValue - nodeSize));
+        await context
+            .Divisions.Where(d => d.BookId == division.BookId && d.RightValue > division.RightValue)
+            .ExecuteUpdateAsync(s =>
+                s.SetProperty(d => d.RightValue, d => d.RightValue - nodeSize)
+            );
 
-        await context.Divisions
-            .Where(d => d.BookId == division.BookId && d.LeftValue > division.RightValue)
-            .ExecuteUpdateAsync(s => s
-                .SetProperty(d => d.LeftValue, d => d.LeftValue - nodeSize));
+        await context
+            .Divisions.Where(d => d.BookId == division.BookId && d.LeftValue > division.RightValue)
+            .ExecuteUpdateAsync(s => s.SetProperty(d => d.LeftValue, d => d.LeftValue - nodeSize));
 
         // Reordenar los hermanos si es necesario
         if (division.ParentId != null)
         {
-            await context.Divisions
-                .Where(d => d.ParentId == division.ParentId && d.Order > division.Order)
-                .ExecuteUpdateAsync(s => s
-                    .SetProperty(d => d.Order, d => d.Order - 1));
+            await context
+                .Divisions.Where(d => d.ParentId == division.ParentId && d.Order > division.Order)
+                .ExecuteUpdateAsync(s => s.SetProperty(d => d.Order, d => d.Order - 1));
         }
 
         await context.SaveChangesAsync();
@@ -579,8 +632,8 @@ public class DivisionRepository(
     public async Task RebuildTreeAsync(BookId bookId)
     {
         // Obtener todas las divisiones del libro
-        var divisions = await context.Divisions
-            .Where(d => d.BookId == bookId)
+        var divisions = await context
+            .Divisions.Where(d => d.BookId == bookId)
             .OrderBy(d => d.Depth)
             .ThenBy(d => d.Order)
             .ToListAsync();
@@ -644,15 +697,15 @@ public class DivisionRepository(
     private async Task UpdateRightValuesAsync(BookId bookId, int fromValue, int increment)
     {
         // Actualizar RightValue de todos los nodos con RightValue >= fromValue
-        await context.Divisions
-            .Where(d => d.BookId == bookId && d.RightValue >= fromValue)
-            .ExecuteUpdateAsync(s => s
-                .SetProperty(d => d.RightValue, d => d.RightValue + increment));
+        await context
+            .Divisions.Where(d => d.BookId == bookId && d.RightValue >= fromValue)
+            .ExecuteUpdateAsync(s =>
+                s.SetProperty(d => d.RightValue, d => d.RightValue + increment)
+            );
 
         // Actualizar LeftValue de todos los nodos con LeftValue > fromValue
-        await context.Divisions
-            .Where(d => d.BookId == bookId && d.LeftValue > fromValue)
-            .ExecuteUpdateAsync(s => s
-                .SetProperty(d => d.LeftValue, d => d.LeftValue + increment));
+        await context
+            .Divisions.Where(d => d.BookId == bookId && d.LeftValue > fromValue)
+            .ExecuteUpdateAsync(s => s.SetProperty(d => d.LeftValue, d => d.LeftValue + increment));
     }
 }

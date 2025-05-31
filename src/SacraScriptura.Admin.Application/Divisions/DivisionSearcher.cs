@@ -6,9 +6,7 @@ namespace SacraScriptura.Admin.Application.Divisions;
 /// <summary>
 /// Application service for managing book divisions.
 /// </summary>
-public class DivisionSearcher(
-    DivisionService divisionService
-)
+public class DivisionSearcher(DivisionService divisionService)
 {
     /// <summary>
     /// Gets the hierarchical structure of divisions for a book.

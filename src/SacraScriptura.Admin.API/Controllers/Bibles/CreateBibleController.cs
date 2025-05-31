@@ -8,9 +8,7 @@ namespace SacraScriptura.Admin.API.Controllers.Bibles;
 /// </summary>
 [ApiController]
 [Route("api/bibles")]
-public class CreateBibleController(
-    BibleCreator bibleCreator
-) : ControllerBase
+public class CreateBibleController(BibleCreator bibleCreator) : ControllerBase
 {
     /// <summary>
     /// Creates a new bible.
